@@ -10,7 +10,7 @@ const marginBottom = 5;
 const marginTop = 15;
 const SubscribeScreen = ({naviagation}) => {
   return (
-    <View style={styles.conteiner}>
+    <View style={[GS.conteiner, {justifyContent: 'space-between'}]}>
       <View>
         <View
           style={{
@@ -60,11 +60,11 @@ const SubscribeScreen = ({naviagation}) => {
 };
 export default SubscribeScreen;
 
-const styles = StyleSheet.create({
-  conteiner: {
-    flex: 1,
-    margin: 15,
-    backgroundColor,
-    justifyContent: 'space-between',
-  },
-});
+// const styles = StyleSheet.create({
+//   conteiner: {
+//     flex: 1,
+//     margin: 15,
+//     backgroundColor,
+//     justifyContent: 'space-between',
+//   },
+// });

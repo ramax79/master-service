@@ -22,6 +22,7 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
+      initialRouteName={MasterScreen}
       screenOptions={{
         tabBarShowLabel: false,
         tabBarActiveTintColor: ctaColor, //'#ffffff',
@@ -77,7 +78,7 @@ const TabNavigator = () => {
       />
       {/* специалисты Master.js */}
       <Tab.Screen
-        name="Master"
+        name="Специалисты"
         component={MasterScreen}
         options={{
           tabBarIcon: ({focused, color, size}) => (

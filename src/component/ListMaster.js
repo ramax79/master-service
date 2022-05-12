@@ -6,7 +6,12 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from 'react-native';
+
+import {observer} from 'mobx-react';
+import * as mobx from 'mobx';
+import {myState} from '../state/State';
 
 import {
   borderRadius,
@@ -14,16 +19,13 @@ import {
   errorColor,
   GS,
   textColor,
+  unselectedColor,
   unselectedNaviColor,
 } from '../const/GLOBALSTYLE';
-import {observer} from 'mobx-react';
-import * as mobx from 'mobx';
-import {myState} from '../state/State';
-
 import ButtonCartInfo from './ButtonCartInfo';
 import Rating from './Rating';
 
-const CartMaster = observer(({navigation}) => {
+const ListMaster = observer(({navigation}) => {
   const activeItems = (item, index) => {
     setActiveIndex(index + 1);
   };
@@ -93,49 +95,56 @@ const CartMaster = observer(({navigation}) => {
   const [activeIndex, setActiveIndex] = useState(1);
 
   return (
-    <View style={{flexDirection: 'row'}}>
+    <View style={styles.box}>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
         data={myState.MASTER}
-        horizontal={true}
+        horizontal={false}
         // initialScrollIndex={activeDayIndex - 1}
         // getItemLayout={(data, index) => ({
         //   length: width / 9 + 10,
         //   offset: (width / 9 + 10) * index,
         //   index,
         // })}
-        showsHorizontalScrollIndicator={false}
+        // showsHorizontalScrollIndicator={false}
         renderItem={renderItem}
       />
     </View>
   );
 });
-export default CartMaster;
+export default ListMaster;
 
 const styles = StyleSheet.create({
+  box: {
+    flex: 1,
+    // backgroundColor: 'red',
+    marginTop: 15,
+  },
   boxCartMaster: {
     //CartMaster.js
-    width: 230,
+    width: '100%',
     height: 80,
     borderRadius,
     backgroundColor: '#ffffff',
-    marginRight: 10,
+    marginBottom: 10,
     flexDirection: 'row',
-    padding: 5,
+    padding: 7,
   },
   activeBoxCartMaster: {
     //CartMaster.js
-    width: 230,
+    width: '100%',
     height: 80,
     borderRadius,
     backgroundColor: ctaColor,
-    marginRight: 10,
+    marginBottom: 10,
     flexDirection: 'row',
-    padding: 5,
+    padding: 7,
   },
   imageCartMaster: {
     //CartMaster.js
-    height: 70,
+    // height: 107,
+    // width: 90,
+    height: '100%',
     width: 60,
     borderRadius,
     marginRight: 10,

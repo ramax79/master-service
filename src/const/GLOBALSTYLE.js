@@ -15,6 +15,7 @@ export const textAddBackgroundLightColor = '#EFFBDA';
 export const textAddBackgroundDarkColor = '#932907';
 
 export const {width, height} = Dimensions.get('window');
+export const borderRadius = 7;
 const fontFamily = 'Inter-SemiBold';
 // fontFamily: 'Inter-Light',
 // fontFamily: 'Roboto-Regular',
@@ -158,7 +159,7 @@ export const GS = StyleSheet.create({
   columnTime: {
     justifyContent: 'space-between',
   },
-  
+
   shadowOpacity: {
     //CartMaster.js
     shadowColor: '#206AE4',
@@ -228,7 +229,7 @@ export const GS = StyleSheet.create({
   CustomFont: {
     fontFamily: 'Roboto-Regular',
   },
-  
+
   ButtonText: {
     fontFamily: 'NotoSerif-Italic',
     fontSize: 25,

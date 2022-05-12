@@ -16,6 +16,7 @@ import * as mobx from 'mobx';
 import {myState} from '../state/State';
 
 import {
+  borderRadius,
   ctaColor,
   errorColor,
   GS,
@@ -210,7 +211,7 @@ const styles = StyleSheet.create({
     //CartMaster.js
     width: 300,
     height: 155,
-    borderRadius: 5,
+    borderRadius,
     backgroundColor: '#ffffff',
     marginRight: 10,
     flexDirection: 'column',
@@ -220,7 +221,7 @@ const styles = StyleSheet.create({
     //CartMaster.js
     width: 300,
     height: 155,
-    borderRadius: 5,
+    borderRadius,
     backgroundColor: ctaColor,
     marginRight: 10,
     flexDirection: 'column',
@@ -232,7 +233,7 @@ const styles = StyleSheet.create({
     // width: 90,
     height: '100%',
     width: 90,
-    borderRadius: 5,
+    borderRadius,
     marginRight: 10,
   },
   boxTextCart: {
