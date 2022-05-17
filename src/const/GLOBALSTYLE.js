@@ -16,7 +16,10 @@ export const textAddBackgroundDarkColor = '#932907';
 
 export const {width, height} = Dimensions.get('window');
 export const borderRadius = 7;
-const fontFamily = 'Inter-SemiBold';
+export const marginBottom = 5;
+export const marginTop = 15;
+export const padding = 7;
+
 // fontFamily: 'Inter-Light',
 // fontFamily: 'Roboto-Regular',
 // Inter-SemiBold
@@ -25,7 +28,7 @@ export const GS = StyleSheet.create({
   conteiner: {
     flex: 1,
     margin: 15,
-    backgroundColor,
+    // paddingBottom: 150,
   },
   boxshadows: {
     backgroundColor: '#fff',

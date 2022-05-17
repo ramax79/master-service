@@ -2,18 +2,15 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 
 import {observer} from 'mobx-react';
-import * as mobx from 'mobx';
-import {myState} from '../state/State';
 
 import {
   borderRadius,
   ctaColor,
   GS,
-  textColor,
   unselectedNaviColor,
 } from '../const/GLOBALSTYLE';
 
-const CartSpecialization = observer(({navigation}) => {
+const CartCategory = observer(({navigation, name}) => {
   const activeItems = (item, index) => {
     setActiveIndex(index + 1);
   };
@@ -41,7 +38,7 @@ const CartSpecialization = observer(({navigation}) => {
     <View style={styles.box}>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
-        data={myState.specialization}
+        data={name}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         renderItem={renderItem}
@@ -49,16 +46,12 @@ const CartSpecialization = observer(({navigation}) => {
     </View>
   );
 });
-export default CartSpecialization;
+export default CartCategory;
 
 const styles = StyleSheet.create({
   box: {
     height: 40,
     width: '100%',
-    // backgroundColor: 'red',
-    // borderRadius: 7,
-    // borderWidth: 1,
-    // backgroundColor
   },
   boxCartSpecialization: {
     //CartMaster.js

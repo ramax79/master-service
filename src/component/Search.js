@@ -8,11 +8,10 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import {ctaColor, fieldFormColor, GS} from '../const/GLOBALSTYLE';
+import {fieldFormColor, GS} from '../const/GLOBALSTYLE';
 
-const MySearch = ({name}) => {
-  return (
-    <>
+const Search = ({name}) => {
+  return (    
       <View style={styles.box}>
         <Icon
           name={'search'}
@@ -27,20 +26,11 @@ const MySearch = ({name}) => {
           // value={name}
           numberOfLines={1}
           style={[GS.SmallText, styles.textInput]}
-        />
-
-        {/* <Text
-          style={[
-            GS.H2,
-            {color: fieldFormColor, textAlign: 'left', paddingLeft: 5},
-          ]}>
-          {name}
-        </Text> */}
-      </View>
-    </>
+        />      
+      </View>    
   );
 };
-export default MySearch;
+export default Search;
 
 const styles = StyleSheet.create({
   box: {

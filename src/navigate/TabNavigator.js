@@ -2,10 +2,10 @@ import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import SubscribeScreen from '../screens/SubscribeScreen';
-import MasterScreen from '../screens/MasterScreen';
+import BookingsScreen from '../screens/BookingsScreen';
+import SpecialistScreen from '../screens/SpecialistScreen';
 import ProgramsScreen from '../screens/ProgramsScreen';
-import MySubscribeScreen from '../screens/MySubscribeScreen';
+import MyBookingsScreen from '../screens/MyBookingsScreen';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
@@ -22,7 +22,7 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName={MasterScreen}
+      initialRouteName={ProgramsScreen}
       screenOptions={{
         tabBarShowLabel: false,
         tabBarActiveTintColor: ctaColor, //'#ffffff',
@@ -53,7 +53,7 @@ const TabNavigator = () => {
       {/* записаться Subscribe.js*/}
       <Tab.Screen
         name="Записаться"
-        component={SubscribeScreen}
+        component={BookingsScreen}
         options={{
           tabBarIcon: ({focused, color, size}) => (
             <View
@@ -76,10 +76,10 @@ const TabNavigator = () => {
           // },
         }}
       />
-      {/* специалисты Master.js */}
+      {/* специалисты Specialist.js */}
       <Tab.Screen
         name="Специалисты"
-        component={MasterScreen}
+        component={SpecialistScreen}
         options={{
           tabBarIcon: ({focused, color, size}) => (
             <View
@@ -101,7 +101,7 @@ const TabNavigator = () => {
       />
       {/* программы Programs.js */}
       <Tab.Screen
-        name="Programs"
+        name="Программы"
         component={ProgramsScreen}
         options={{
           tabBarIcon: ({focused, color, size}) => (
@@ -124,8 +124,8 @@ const TabNavigator = () => {
       />
       {/* мои записи MySubscribe.js*/}
       <Tab.Screen
-        name="MySubscribe"
-        component={MySubscribeScreen}
+        name="Мои записи"
+        component={MyBookingsScreen}
         options={{
           tabBarIcon: ({focused, color, size}) => (
             <View

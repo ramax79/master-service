@@ -1,14 +1,14 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {ctaColor, GS} from '../const/GLOBALSTYLE';
-const MyButton = ({name}) => {
+import {ctaColor, GS, borderRadius} from '../const/GLOBALSTYLE';
+const ButtonBox = ({name}) => {
   return (
     <TouchableOpacity style={styles.button}>
       <Text style={[GS.H2, {color: '#ffffff'}]}>{name}</Text>
     </TouchableOpacity>
   );
 };
-export default MyButton;
+export default ButtonBox;
 
 const styles = StyleSheet.create({
   button: {
@@ -18,6 +18,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: ctaColor,
-    borderRadius: 7,
+    borderRadius,
   },
 });

@@ -23,7 +23,7 @@ import DayOfWeekTime from '../component/DayOfWeekTime';
 import CurrentGetDate from '../const/CurrentGetDate';
 
 import {GS, ctaColor} from '../const/GLOBALSTYLE';
-import MyButton from '../component/MyButton';
+import ButtonBox from '../component/ButtonBox';
 
 // LocaleConfig.locales['ru'] = {
 //   monthNames: [
@@ -168,7 +168,7 @@ const DateSubscribe = () => {
       </Text> */}
       <DayOfWeek date={date} onChange={newDate => setDate(newDate)} />
       <DayOfWeekTime date={date} />
-      <MyButton name={'Выбрать'} />
+      <ButtonBox name={'Выбрать'} />
 
       {/* <Agenda
         items={items}

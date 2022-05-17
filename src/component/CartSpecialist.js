@@ -17,13 +17,12 @@ import {
   unselectedNaviColor,
 } from '../const/GLOBALSTYLE';
 import {observer} from 'mobx-react';
-import * as mobx from 'mobx';
 import {myState} from '../state/State';
 
 import ButtonCartInfo from './ButtonCartInfo';
 import Rating from './Rating';
 
-const CartMaster = observer(({navigation}) => {
+const CartSpecialist = observer(({navigation}) => {
   const activeItems = (item, index) => {
     setActiveIndex(index + 1);
   };
@@ -39,32 +38,29 @@ const CartMaster = observer(({navigation}) => {
       nameFavorite = 'turned-in-not';
       colorFavorite = ctaColor;
     }
-    const boxCartMaster = [styles.boxCartMaster];
-    const colorFioCartMaster = [{color: textColor}];
-    const colorSpecCartMaster = [{color: unselectedNaviColor}];
+    const boxCartSpecialist = [styles.boxCartSpecialist];
+    const colorFioCartSpecialist = [{color: textColor}];
+    const colorSpecCartSpecialist = [{color: unselectedNaviColor}];
 
     if (activeIndex === index + 1) {
-      boxCartMaster.push(styles.activeBoxCartMaster);
-      colorFioCartMaster.push({color: '#ffffff'});
-      colorSpecCartMaster.push({color: '#ffffff'});
+      boxCartSpecialist.push(styles.activeBoxCartSpecialist);
+      colorFioCartSpecialist.push({color: '#ffffff'});
+      colorSpecCartSpecialist.push({color: '#ffffff'});
     }
     // console.log(item.foto);
     return (
-      // <View style={boxCartMaster}>
-      <TouchableOpacity
-        // style={boxCartMaster}
-        onPress={() => activeItems(item, index)}>
-        <View style={boxCartMaster}>
-          <Image source={{uri: item.foto}} style={styles.imageCartMaster} />
+      <TouchableOpacity onPress={() => activeItems(item, index)}>
+        <View style={boxCartSpecialist}>
+          <Image source={{uri: item.foto}} style={styles.imageCartSpecialist} />
           {/* box описания */}
-          <View style={styles.boxTextCartMaster}>
+          <View style={styles.boxTextCartSpecialist}>
             {/* группа текстовое описание */}
             <View style={{justifyContent: 'space-between'}}>
-              <View style={styles.textCartMaster}>
-                <Text style={[GS.Subtitle2, colorFioCartMaster]}>
+              <View style={styles.textCartSpecialist}>
+                <Text style={[GS.Subtitle2, colorFioCartSpecialist]}>
                   {item.fio}
                 </Text>
-                <Text style={[GS.extraSmallText, colorSpecCartMaster]}>
+                <Text style={[GS.extraSmallText, colorSpecCartSpecialist]}>
                   {item.specialization}
                 </Text>
               </View>
@@ -78,10 +74,9 @@ const CartMaster = observer(({navigation}) => {
               />
             </View>
             {/* группа избранное и описание */}
-            <View style={styles.infoCartMaster}>
+            <View style={styles.infoCartSpecialist}>
               <ButtonCartInfo name={nameFavorite} color={colorFavorite} />
-
-              {/* <ButtonCartInfo name={'turned-in'} color={errorColor} /> */}
+              
               <ButtonCartInfo name={'info'} color={ctaColor} />
             </View>
           </View>
@@ -93,38 +88,33 @@ const CartMaster = observer(({navigation}) => {
   const [activeIndex, setActiveIndex] = useState(1);
 
   return (
-    <View style={{flexDirection: 'row'}}>
+    <View style={styles.box}>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
-        data={myState.MASTER}
-        horizontal={true}
-        // initialScrollIndex={activeDayIndex - 1}
-        // getItemLayout={(data, index) => ({
-        //   length: width / 9 + 10,
-        //   offset: (width / 9 + 10) * index,
-        //   index,
-        // })}
+        data={myState.SPECIALIST}
+        horizontal={true}        
         showsHorizontalScrollIndicator={false}
         renderItem={renderItem}
       />
     </View>
   );
 });
-export default CartMaster;
+export default CartSpecialist;
 
 const styles = StyleSheet.create({
-  boxCartMaster: {
-    //CartMaster.js
+  box:{
+    flexDirection: 'row',
+  },
+  boxCartSpecialist: {
     width: 230,
     height: 80,
     borderRadius,
     backgroundColor: '#ffffff',
-    marginRight: 10,
+    // marginRight: 10,
     flexDirection: 'row',
     padding: 5,
   },
-  activeBoxCartMaster: {
-    //CartMaster.js
+  activeBoxCartSpecialist: {
     width: 230,
     height: 80,
     borderRadius,
@@ -133,26 +123,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 5,
   },
-  imageCartMaster: {
-    //CartMaster.js
+  imageCartSpecialist: {
     height: 70,
     width: 60,
     borderRadius,
     marginRight: 10,
   },
-  boxTextCartMaster: {
+  boxTextCartSpecialist: {
     flex: 1,
     flexDirection: 'row',
     // backgroundColor: 'green',
     justifyContent: 'space-between',
   },
-  textCartMaster: {
+  textCartSpecialist: {
     flex: 1,
     // justifyContent: 'space-between',
     alignItems: 'flex-start',
     // backgroundColor: 'yellow',
   },
-  infoCartMaster: {
+  infoCartSpecialist: {
     height: '100%',
     width: 30,
     // backgroundColor: 'red',

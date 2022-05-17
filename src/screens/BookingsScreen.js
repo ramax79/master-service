@@ -1,14 +1,14 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {backgroundColor, ctaColor, GS} from '../const/GLOBALSTYLE';
-import CartMaster from '../component/CartMaster';
-import CartPrograms from '../component/CartPrograms';
+import {GS, marginTop, marginBottom} from '../const/GLOBALSTYLE';
 import CartDateSubscribe from '../component/CartDateSubscribe';
-import MyButton from '../component/MyButton';
+import ButtonBox from '../component/ButtonBox';
+import ButtonText from '../component/ButtonText';
+import ListSpecialist from '../component/ListSpecialist';
+import ListPrograms from '../component/ListPrograms';
 
-const marginBottom = 5;
-const marginTop = 15;
-const SubscribeScreen = ({naviagation}) => {
+const BookingsScreen = ({naviagation}) => {
+
   return (
     <View style={[GS.conteiner, {justifyContent: 'space-between'}]}>
       <View>
@@ -19,11 +19,16 @@ const SubscribeScreen = ({naviagation}) => {
             alignItems: 'center',
           }}>
           <Text style={[GS.H2, {marginBottom}]}>Специалист</Text>
-          <Text style={[GS.Subtitle2, {color: ctaColor, textAlign: 'center'}]}>
-            Показать все
-          </Text>
+          <ButtonText name={'Показать все'} />
         </View>
-        <CartMaster />
+        <View style={{height: 80}}>
+          <ListSpecialist
+            horizontal={true}
+            width={230}
+            // imageCartSpecialistHeight={'100%'}
+            boxcartspecialist={{marginRight: 10}}
+          />
+        </View>
         <View
           style={{
             flexDirection: 'row',
@@ -32,11 +37,16 @@ const SubscribeScreen = ({naviagation}) => {
             marginTop,
           }}>
           <Text style={[GS.H2, {marginBottom}]}>Программа</Text>
-          <Text style={[GS.Subtitle2, {color: ctaColor, textAlign: 'center'}]}>
-            Показать все
-          </Text>
+          <ButtonText name={'Показать все'} />
         </View>
-        <CartPrograms />
+        <View style={{height: 155}}>
+          <ListPrograms
+            horizontal={true}
+            width={300}
+            // imageCartSpecialistHeight={'100%'}
+            boxcartprograms={{marginRight: 10}}
+          />
+        </View>
         <View
           style={{
             flexDirection: 'row',
@@ -45,26 +55,14 @@ const SubscribeScreen = ({naviagation}) => {
             marginTop,
           }}>
           <Text style={[GS.H2, {marginBottom}]}>Дата записи</Text>
-          <TouchableOpacity>
-            <Text
-              style={[GS.Subtitle2, {color: ctaColor, textAlign: 'center'}]}>
-              Изменить
-            </Text>
-          </TouchableOpacity>
+          <ButtonText name={'Изменить'} />
         </View>
         <CartDateSubscribe />
       </View>
-      <MyButton name={'Записаться'} />
+      <ButtonBox name={'Записаться'} />
     </View>
   );
 };
-export default SubscribeScreen;
+export default BookingsScreen;
 
-// const styles = StyleSheet.create({
-//   conteiner: {
-//     flex: 1,
-//     margin: 15,
-//     backgroundColor,
-//     justifyContent: 'space-between',
-//   },
-// });
+ 
