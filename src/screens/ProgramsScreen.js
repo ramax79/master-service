@@ -21,7 +21,7 @@ const ProgramsScreen = ({navigation}) => {
       <ListPrograms
         horizontal={false}
         width={'100%'}
-        boxcartprograms={{marginBottom: 10}}
+        boxMargin={{marginBottom: 10}}
       />
       <View style={{marginBottom}}></View>
       <ButtonBox name={'Выбрать программу'} />

@@ -67,7 +67,7 @@ const CartPrograms = observer(({navigation}) => {
         <View style={boxCart}>
           {/* box описания c фото*/}
           <View style={styles.boxInfoCart}>
-            <Image source={{uri: item.foto}} style={styles.imageCartPrograms} />
+            <Image source={{uri: item.image}} style={styles.imageCartPrograms} />
             <View style={styles.boxTextCart}>
               {/* группа текстовое описание */}
               <View style={styles.boxHeader}>

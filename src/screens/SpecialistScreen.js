@@ -23,7 +23,7 @@ const SpecialistScreen = ({navigation}) => {
       <ListSpecialist
         horizontal={false}
         width={'100%'}
-        boxcartspecialist={{marginBottom: 10}}
+        boxMargin={{marginBottom: 10}}
       />
       <View style={{marginBottom}}></View>
 
@@ -32,5 +32,3 @@ const SpecialistScreen = ({navigation}) => {
   );
 };
 export default SpecialistScreen;
-
-

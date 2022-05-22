@@ -25,7 +25,7 @@ import ButtonCartInfo from './ButtonCartInfo';
 import Rating from './Rating';
 
 const ListPrograms = observer(
-  ({navigation, horizontal, width, boxcartprograms}) => {
+  ({navigation, horizontal, width, boxMargin}) => {
     const activeItems = (item, index) => {
       setActiveIndex(index + 1);
     };
@@ -99,7 +99,7 @@ const ListPrograms = observer(
         colorFavorite = ctaColor;
       }
       const boxCart = [styles.boxCartPrograms];
-      boxCart.push(boxcartprograms);
+      boxCart.push(boxMargin);
       // console.log('myState.colorNameProgram - ', myState.colorNameProgram);
 
       myState.setColorNameProgram(textColor);
@@ -126,7 +126,7 @@ const ListPrograms = observer(
             {/* box описания c фото*/}
             <View style={styles.boxInfoCart}>
               <Image
-                source={{uri: item.foto}}
+                source={{uri: item.image}}
                 style={styles.imageCartPrograms}
               />
               <View style={styles.boxTextCart}>
@@ -156,28 +156,37 @@ const ListPrograms = observer(
             {/* группа рейтинг описание длительность цена */}
             <View style={styles.boxButtonCart}>
               <Rating
-                name={'star-rate'}
+                name={'star'}
                 color={ctaColor}
                 size={15}
-                rating={item.rating}
+                text={item.rating}
+                disabled={false}
                 width={55}
                 height={30}
+                aligncenter={true}
+                textMargin={{marginLeft:0}}
               />
               <Rating
-                name={'alarm'}
+                name={'av-timer'} //alarm
                 color={unselectedNaviColor}
+                disabled={true}
                 size={20}
-                rating={`${item.time} мин`}
+                text={`${item.time} мин`}
                 width={80}
                 height={30}
+                aligncenter={true}
+                textMargin={{marginLeft:0}}
               />
               <Rating
                 name={''}
                 color={unselectedNaviColor}
                 size={12}
-                rating={`${item.price} руб`}
+                disabled={true}
+                text={`${item.price} руб`}
                 width={70}
                 height={30}
+                aligncenter={true}
+                textMargin={{marginLeft:0}}
               />
               <ButtonCartInfo name={'info'} color={ctaColor} />
             </View>

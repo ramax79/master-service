@@ -13,7 +13,9 @@ import {
   ctaColor,
   errorColor,
   GS,
+  marginBottom,
   padding,
+  successColor,
   textColor,
   unselectedNaviColor,
 } from '../const/GLOBALSTYLE';
@@ -24,53 +26,47 @@ import ButtonCartInfo from './ButtonCartInfo';
 import Rating from './Rating';
 
 const ListMyBookings = observer(
-  ({navigation, horizontal, width, boxcartspecialist}) => {
-    const activeItems = (item, index) => {
-      setActiveIndex(index + 1);
-    };
+  ({navigation, horizontal, width, boxMargin}) => {
+    // const activeItems = (item, index) => {
+    //   setActiveIndex(index + 1);
+    // };
 
     const styles = StyleSheet.create({
       box: {
         flex: 1,
       },
-      boxCartSpecialist: {
+      boxCart: {
         // width: '100%',
-        width,
-        height: 80,
+        // width,
+        // height: 155,
+        flex: 1,
         borderRadius,
         backgroundColor: '#ffffff',
         // marginBottom: 10,
         flexDirection: 'row',
-        padding: 7,
-      },
-      activeBoxCartSpecialist: {
-        width,
-        height: 80,
-        borderRadius,
-        backgroundColor: ctaColor,
-        // marginBottom: 10,
-        flexDirection: 'row',
         padding,
+        marginBottom,
       },
-      imageCartSpecialist: {
+
+      imageCart: {
         height: '100%',
-        width: 60,
+        width: 90,
         borderRadius,
         marginRight: 10,
       },
-      boxTextCartSpecialist: {
+      boxTextCart: {
         flex: 1,
         flexDirection: 'row',
         // backgroundColor: 'green',
         justifyContent: 'space-between',
       },
-      textCartSpecialist: {
+      textCart: {
         flex: 1,
         // justifyContent: 'space-between',
         alignItems: 'flex-start',
         // backgroundColor: 'yellow',
       },
-      infoCartSpecialist: {
+      infoCart: {
         height: '100%',
         width: 30,
         // backgroundColor: 'red',
@@ -89,78 +85,109 @@ const ListMyBookings = observer(
         nameFavorite = 'turned-in-not';
         colorFavorite = ctaColor;
       }
-      const boxCart = [styles.boxCartSpecialist];
-      boxCart.push(boxcartspecialist);
+      const boxCart = [styles.boxCart];
+      boxCart.push(boxMargin);
 
-      const colorFioCartSpecialist = [{color: textColor}];
-      const colorSpecCartSpecialist = [{color: unselectedNaviColor}];
+      const colorNameCart = [{color: textColor}];
+      const colorSpecCart = [{color: unselectedNaviColor}];
 
-      if (activeIndex === index + 1) {
-        boxCart.push(styles.activeBoxCartSpecialist);
-
-        colorFioCartSpecialist.push({color: '#ffffff'});
-        colorSpecCartSpecialist.push({color: '#ffffff'});
-      }
       return (
-        <TouchableOpacity onPress={() => activeItems(item, index)}>
-          <View style={boxCart}>
-            <Image
-              source={{uri: item.foto}}
-              style={styles.imageCartSpecialist}
-            />
-            {/* box описания */}
-            <View style={styles.boxTextCartSpecialist}>
-              {/* группа текстовое описание */}
-              <View style={{justifyContent: 'space-between'}}>
-                <View style={styles.textCartSpecialist}>
-                  <Text style={[GS.Subtitle2, colorFioCartSpecialist]}>
-                    {item.fio}
-                  </Text>
-                  <Text style={[GS.extraSmallText, colorSpecCartSpecialist]}>
-                    {item.specialization}
+        // <TouchableOpacity onPress={() => activeItems(item, index)}>
+        <View style={boxCart}>
+          <Image source={{uri: item.image}} style={styles.imageCart} />
+          {/* box описания */}
+          <View style={styles.boxTextCart}>
+            {/* группа текстовое описание */}
+            {/* <View style={{justifyContent: 'space-between'}}> */}
+
+            <View style={styles.textCart}>
+              <View
+                style={{                  
+                  width: '100%',
+                  flexDirection: 'row',                  
+                  justifyContent: 'space-between',
+                }}>
+                <View>
+                  <Text style={[GS.Subtitle2, colorNameCart]}>
+                    {item.nameProgram}
                   </Text>
                 </View>
+                <View>
+                  {item.active ? (
+                    <Text style={{color: successColor}}> Активная</Text>
+                  ) : (
+                    <Text style={{color: errorColor}}>Архивная</Text>
+                  )}
+                </View>
+              </View>
+              <Text style={[GS.extraSmallText, colorSpecCart]}>
+                {item.specialization}
+              </Text>
+              <View style={{flex: 1, justifyContent: 'space-between'}}>
                 <Rating
-                  name={'star-rate'}
-                  size={15}
-                  color={ctaColor}
-                  rating={item.rating}
-                  width={55}
-                  height={30}
+                  name={'av-timer'}
+                  size={20}
+                  color={textColor}
+                  text={`${item.time} мин`}
+                  width={'100%'}
+                  height={35}
+                  aligncenter={false}
+                  disabled={true}
+                  textMargin={{marginLeft: 10}}
+                />
+                <Rating
+                  name={'currency-rub'}
+                  size={20}
+                  color={textColor}
+                  text={`${item.price} руб`}
+                  width={'100%'}
+                  height={35}
+                  aligncenter={false}
+                  disabled={true}
+                  textMargin={{marginLeft: 10}}
+                />
+                <Rating
+                  name={'note-edit-outline'} // note-edit-outline  note-text-outline
+                  size={20}
+                  color={textColor}
+                  text={`пятница, 12.05.2022`}
+                  width={'100%'}
+                  height={35}
+                  aligncenter={false}
+                  disabled={true}
+                  textMargin={{marginLeft: 10}}
+                />
+                <Rating
+                  name={'alarm'}
+                  size={20}
+                  color={textColor}
+                  text={`9:00`}
+                  width={'100%'}
+                  height={35}
+                  aligncenter={false}
+                  disabled={true}
+                  textMargin={{marginLeft: 10}}
                 />
               </View>
-              {/* группа избранное и описание */}
-              <View style={styles.infoCartSpecialist}>
-                <ButtonCartInfo name={nameFavorite} color={colorFavorite} />
-                <ButtonCartInfo name={'info'} color={ctaColor} />
-              </View>
             </View>
+            {/* </View> */}
           </View>
-        </TouchableOpacity>
+        </View>
+        // </TouchableOpacity>
       );
     };
 
-    const [activeIndex, setActiveIndex] = useState(1);
+    // const [activeIndex, setActiveIndex] = useState(1);
 
     return (
       <View style={styles.box}>
-        {horizontal ? (
-          <FlatList
-            keyExtractor={(item, index) => index.toString()}
-            data={myState.SPECIALIST}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            renderItem={renderItem}
-          />
-        ) : (
-          <FlatList
-            keyExtractor={(item, index) => index.toString()}
-            data={myState.SPECIALIST}
-            horizontal={false}
-            showsVerticalScrollIndicator={false}
-            renderItem={renderItem}
-          />
-        )}
+        <FlatList
+          keyExtractor={(item, index) => index.toString()}
+          data={myState.filterMYBOOKINGS}
+          horizontal={false}
+          showsVerticalScrollIndicator={false}
+          renderItem={renderItem}
+        />
       </View>
     );
   },

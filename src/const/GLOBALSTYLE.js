@@ -1,6 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
-export const backgroundColor = '#FAFBFC';
+export const backgroundColor = '#E9ECEC'; //'#FAFBFC';
 export const textColor = '#00184B';
 export const ctaColor = '#414BBE';
 export const infoColor = '#78C2F8';
@@ -28,6 +28,7 @@ export const GS = StyleSheet.create({
   conteiner: {
     flex: 1,
     margin: 15,
+    backgroundColor,
     // paddingBottom: 150,
   },
   boxshadows: {

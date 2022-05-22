@@ -24,7 +24,7 @@ import ButtonCartInfo from './ButtonCartInfo';
 import Rating from './Rating';
 
 const ListSpecialist = observer(
-  ({navigation, horizontal, width, boxcartspecialist}) => {
+  ({navigation, horizontal, width, boxMargin}) => {
     const activeItems = (item, index) => {
       setActiveIndex(index + 1);
     };
@@ -90,7 +90,7 @@ const ListSpecialist = observer(
         colorFavorite = ctaColor;
       }
       const boxCart = [styles.boxCartSpecialist];
-      boxCart.push(boxcartspecialist);
+      boxCart.push(boxMargin);
 
       const colorFioCartSpecialist = [{color: textColor}];
       const colorSpecCartSpecialist = [{color: unselectedNaviColor}];
@@ -105,7 +105,7 @@ const ListSpecialist = observer(
         <TouchableOpacity onPress={() => activeItems(item, index)}>
           <View style={boxCart}>
             <Image
-              source={{uri: item.foto}}
+              source={{uri: item.image}}
               style={styles.imageCartSpecialist}
             />
             {/* box описания */}
@@ -121,12 +121,15 @@ const ListSpecialist = observer(
                   </Text>
                 </View>
                 <Rating
-                  name={'star-rate'}
+                  name={'star'}
                   size={15}
                   color={ctaColor}
-                  rating={item.rating}
+                  disabled={false}
+                  text={item.rating}
                   width={55}
                   height={30}
+                  aligncenter={true}
+                  textMargin={{marginLeft: 0}}
                 />
               </View>
               {/* группа избранное и описание */}
@@ -167,49 +170,3 @@ const ListSpecialist = observer(
 );
 
 export default ListSpecialist;
-
-// const styles = StyleSheet.create({
-//   box: {box},
-//   boxCartSpecialist: {
-//     width: '100%',
-//     height: 80,
-//     borderRadius,
-//     backgroundColor: '#ffffff',
-//     marginBottom: 10,
-//     flexDirection: 'row',
-//     padding: 7,
-//   },
-//   activeBoxCartSpecialist: {
-//     width: '100%',
-//     height: 80,
-//     borderRadius,
-//     backgroundColor: ctaColor,
-//     marginBottom: 10,
-//     flexDirection: 'row',
-//     padding: 7,
-//   },
-//   imageCartSpecialist: {
-//     height: '100%',
-//     width: 60,
-//     borderRadius,
-//     marginRight: 10,
-//   },
-//   boxTextCartSpecialist: {
-//     flex: 1,
-//     flexDirection: 'row',
-//     // backgroundColor: 'green',
-//     justifyContent: 'space-between',
-//   },
-//   textCartSpecialist: {
-//     flex: 1,
-//     // justifyContent: 'space-between',
-//     alignItems: 'flex-start',
-//     // backgroundColor: 'yellow',
-//   },
-//   infoCartSpecialist: {
-//     height: '100%',
-//     width: 30,
-//     // backgroundColor: 'red',
-//     justifyContent: 'space-between',
-//   },
-// });

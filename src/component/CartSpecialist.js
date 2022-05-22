@@ -51,7 +51,7 @@ const CartSpecialist = observer(({navigation}) => {
     return (
       <TouchableOpacity onPress={() => activeItems(item, index)}>
         <View style={boxCartSpecialist}>
-          <Image source={{uri: item.foto}} style={styles.imageCartSpecialist} />
+          <Image source={{uri: item.image}} style={styles.imageCartSpecialist} />
           {/* box описания */}
           <View style={styles.boxTextCartSpecialist}>
             {/* группа текстовое описание */}
