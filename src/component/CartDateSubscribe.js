@@ -6,17 +6,19 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {observer} from 'mobx-react';
 
 import {ctaColor, GS, textColor} from '../const/GLOBALSTYLE';
+import {myState} from '../state/State';
 
 const CartDateSubscribe = observer(({navigation}) => {
-  const dayWeek = 'Пятница';
-  const date = '05.04.2022';
-  const time = '| 09:00';
+  // const dayWeek = 'Пятница';
+  // const date = '05.04.2022';
+  // const time = '| 09:00';
 
   return (
     <View style={styles.boxCartDateSubscribe}>
       <Icon name={'more-time'} size={30} color={textColor} />
       <Text style={[GS.Subtitle2, {color: textColor, paddingLeft: 5}]}>
-        {dayWeek}, {date} {time}{' '}
+        {myState.dataBookingFormated}
+        {/* {dayWeek}, {date} {time}{' '} */}
       </Text>
     </View>
   );

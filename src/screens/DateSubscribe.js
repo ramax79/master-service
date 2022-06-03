@@ -1,29 +1,14 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  Modal,
-  Alert,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React from 'react';
+import {View, Text} from 'react-native';
 
-import {
-  Calendar,
-  CalendarList,
-  Agenda,
-  LocaleConfig,
-  WeekCalendar,
-  // AgendaSchedule
-} from 'react-native-calendars';
-import DatePicker, {getToday} from 'react-native-modern-datepicker';
 import DayOfWeek from '../component/DayOfWeek';
 import DayOfWeekTime from '../component/DayOfWeekTime';
-import CurrentGetDate from '../const/CurrentGetDate';
-
-import {GS, ctaColor} from '../const/GLOBALSTYLE';
 import ButtonBox from '../component/ButtonBox';
+
+import {GS, marginBottom, errorColor, ctaColor} from '../const/GLOBALSTYLE';
+import {observer} from 'mobx-react';
+import {myState} from '../state/State';
+import DayOfWeekMyDelete from '../component/DayOfWeekMyDelete';
 
 // LocaleConfig.locales['ru'] = {
 //   monthNames: [
@@ -138,126 +123,42 @@ import ButtonBox from '../component/ButtonBox';
 // let date = new Date(2014, 0, 3); // 3 января 2014 года
 // alert(getWeekDay(date)); // ПТ
 
-const DateSubscribe = () => {
-  const [date, setDate] = useState(new Date());
-  const currentDate = new CurrentGetDate(date);
-  // console.log('DateRecords = ', date);
-  // addWeekDayMonth(new Date());
-  // const [selectedDate, setSelectedDate] = useState('');
-  // const [modalVisible, setModalVisible] = useState(false);
-  // const [items, setItems] = useState({
-  //   '2022-04-27': [{name: 'test1'}],
-  //   '2022-04-28': [{name: 'test2'}],
-  // });
-  // const [month, setmonth] = useState('');
-
-  // const renderItem = item => {
-  //   return (
-  //     <TouchableOpacity>
-  //       <View style={GS.boxshadows}>
-  //         <Text>{item.name}</Text>
-  //       </View>
-  //     </TouchableOpacity>
-  //   );
-  // };
+const DateSubscribe = observer(({navigation}) => {
+  const onPress = () => {
+    myState.setDataBookingFormated();
+    // console.log('myState.dataBookingFormated = ', myState.dataBookingFormated);
+    navigation.navigate('Записаться');
+  };
 
   return (
     <View style={GS.conteiner}>
-      {/* <Text style={[GS.H2, {color: ctaColor}]}>
-        {currentDate.current_month}
-      </Text> */}
-      <DayOfWeek date={date} onChange={newDate => setDate(newDate)} />
-      <DayOfWeekTime date={date} />
-      <ButtonBox name={'Выбрать'} />
-
-      {/* <Agenda
-        items={items}
-        // loadItemsForMonth={loadItems}
-        // selected={new Date()}
-        renderItem={renderItem}
-      /> */}
-
-      {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        transparent={true}
-        onRequestClose={() => {
-          // Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={GS.centeredView}>
-          <View style={GS.modalView}>
-            <View style={GS.calendarHeader}>
-              <Icon name="arrow-back" size={25} color="#414BBE" />
-              <Text style={(GS.Subtitle1, {color: '#414BBE'})}>
-                {current_month}
-              </Text>
-              <Icon name="arrow-forward" size={25} color="#414BBE" />
-            </View>
-            <View style={GS.calendarDayWeek}>
-              <FlatList
-                keyExtractor={(item, index) => index.toString()}
-                data={WeekDay}
-                scrollEnabled={false}
-                // style={GS.contentContainer}
-                contentContainerStyle={GS.contentContainer}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                renderItem={({item}) => {
-                  return (
-                    <View style={GS.calendarBox}>
-                      <Text style={GS.Subtitle1}>{item} </Text>
-                    </View>
-                  );
-                }}
-              />
-            </View> */}
-
-      {/* <DatePicker
-              current={getToday()}
-              selected={getToday()}
-              mode="calendar"
-              style={GS.Subtitle1}
-              onSelectedChange={date => setSelectedDate(date)}
-            />
-            <TouchableOpacity
-              style={GS.buttonDate}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-                console.log('ol');
-              }}>
-              <Text style={GS.Subtitle1}>Выбрать</Text>
-            </TouchableOpacity> */}
-      {/* <Text style={styles.modalText}>Hello World!</Text> */}
-      {/* <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable> */}
-      {/* </View>
-        </View>
-      </Modal> */}
-
-      {/* <Text>Текущая дата = {nowdate}</Text>
-      <Text>Текущий день = {current_Day}</Text>
-      <Text>День недели = {current_WeekDay}</Text> */}
-      {/* <Calendar
-        // monthFormat={'dd MM yyyy'}
-        firstDay={1}
-      /> */}
-      {/* <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <Text>Месяц = {current_month}</Text>
-      </TouchableOpacity> */}
-      {/* <DatePicker onSelectedChange={date => setSelectedDate(date)} /> */}
-
-      {/* <Text>onSelectedChange = {selectedDate}</Text> */}
-      {/* <Text>Количество дней в мес = {count_day}</Text>
-      <View style={GS.boxshadows}>
-        <Text style={GS.H2}>Hi</Text>
-      </View> */}
+      <DayOfWeek />
+      {/* <DayOfWeekMyDelete /> */}
+      <DayOfWeekTime />
+      {myState.timeBooking === null ? (
+        <Text style={(GS.SmallText, {color: errorColor})}>
+          Выберите время записи
+        </Text>
+      ) : null}
+      <View style={{marginBottom}}></View>
+      {myState.timeBooking === null ? (
+        <ButtonBox
+          textButton={'Выбрать'}
+          onPress={onPress}
+          box={true}
+          disabled={true}
+        />
+      ) : (
+        <ButtonBox
+          textButton={'Выбрать'}
+          onPress={onPress}
+          box={true}
+          disabled={false}
+          backgroundcolor={ctaColor}
+          fontcolor={'#ffffff'}
+        />
+      )}
     </View>
   );
-};
+});
 export default DateSubscribe;

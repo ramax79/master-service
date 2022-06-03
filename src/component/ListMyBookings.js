@@ -1,19 +1,12 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import {View, Text, StyleSheet, FlatList, Image} from 'react-native';
 
 import {
   borderRadius,
   ctaColor,
   errorColor,
   GS,
-  marginBottom,
+  itemMarginBottom,
   padding,
   successColor,
   textColor,
@@ -22,89 +15,40 @@ import {
 import {observer} from 'mobx-react';
 import {myState} from '../state/State';
 
-import ButtonCartInfo from './ButtonCartInfo';
 import Rating from './Rating';
+import CartSpecialist from './CartSpecialist';
 
-const ListMyBookings = observer(
-  ({navigation, horizontal, width, boxMargin}) => {
-    // const activeItems = (item, index) => {
-    //   setActiveIndex(index + 1);
-    // };
+const ListMyBookings = observer(({navigation}) => {
+  const renderItem = ({item, index}) => {
+    const favorite = false;
+    let nameFavorite = '';
+    let colorFavorite = '';
+    if (favorite) {
+      nameFavorite = 'turned-in';
+      colorFavorite = errorColor;
+    } else {
+      nameFavorite = 'turned-in-not';
+      colorFavorite = ctaColor;
+    }
+    // const boxCart = [styles.boxCart];
 
-    const styles = StyleSheet.create({
-      box: {
-        flex: 1,
-      },
-      boxCart: {
-        // width: '100%',
-        // width,
-        // height: 155,
-        flex: 1,
-        borderRadius,
-        backgroundColor: '#ffffff',
-        // marginBottom: 10,
-        flexDirection: 'row',
-        padding,
-        marginBottom,
-      },
+    const colorNameCart = [{color: textColor}];
+    const colorSpecCart = [{color: unselectedNaviColor}];
 
-      imageCart: {
-        height: '100%',
-        width: 90,
-        borderRadius,
-        marginRight: 10,
-      },
-      boxTextCart: {
-        flex: 1,
-        flexDirection: 'row',
-        // backgroundColor: 'green',
-        justifyContent: 'space-between',
-      },
-      textCart: {
-        flex: 1,
-        // justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        // backgroundColor: 'yellow',
-      },
-      infoCart: {
-        height: '100%',
-        width: 30,
-        // backgroundColor: 'red',
-        justifyContent: 'space-between',
-      },
-    });
-
-    const renderItem = ({item, index}) => {
-      const favorite = false;
-      let nameFavorite = '';
-      let colorFavorite = '';
-      if (favorite) {
-        nameFavorite = 'turned-in';
-        colorFavorite = errorColor;
-      } else {
-        nameFavorite = 'turned-in-not';
-        colorFavorite = ctaColor;
-      }
-      const boxCart = [styles.boxCart];
-      boxCart.push(boxMargin);
-
-      const colorNameCart = [{color: textColor}];
-      const colorSpecCart = [{color: unselectedNaviColor}];
-
-      return (
-        // <TouchableOpacity onPress={() => activeItems(item, index)}>
-        <View style={boxCart}>
+    return (
+      // <View style={styles.box}>
+      <View style={styles.boxCart}>
+        <View style={styles.boxPrograma}>
           <Image source={{uri: item.image}} style={styles.imageCart} />
           {/* box описания */}
           <View style={styles.boxTextCart}>
             {/* группа текстовое описание */}
-            {/* <View style={{justifyContent: 'space-between'}}> */}
 
             <View style={styles.textCart}>
               <View
-                style={{                  
+                style={{
                   width: '100%',
-                  flexDirection: 'row',                  
+                  flexDirection: 'row',
                   justifyContent: 'space-between',
                 }}>
                 <View>
@@ -170,73 +114,85 @@ const ListMyBookings = observer(
                 />
               </View>
             </View>
-            {/* </View> */}
           </View>
         </View>
-        // </TouchableOpacity>
-      );
-    };
-
-    // const [activeIndex, setActiveIndex] = useState(1);
-
-    return (
-      <View style={styles.box}>
-        <FlatList
-          keyExtractor={(item, index) => index.toString()}
-          data={myState.filterMYBOOKINGS}
-          horizontal={false}
-          showsVerticalScrollIndicator={false}
-          renderItem={renderItem}
-        />
+        <View style={{height: 80}}>
+          <CartSpecialist
+            id={item.idSpecialist}
+            onPress={() => navigation.navigate('Специалисты')}
+            navigation={navigation}
+            activeIndex={0}
+            index={0}
+            disabled={true}
+            favoriteEnable={false}
+            ratingEnable={false}
+            ButtonCartInfoName={'add-comment'}
+            ButtonCartInfoOnPress={() => navigation.navigate('Добавить отзыв')}
+          />
+        </View>
       </View>
     );
-  },
-);
+  };
+
+  return (
+    <View style={styles.box}>
+      <FlatList
+        keyExtractor={(item, index) => index.toString()}
+        data={myState.filterMYBOOKINGS}
+        horizontal={false}
+        showsVerticalScrollIndicator={false}
+        renderItem={renderItem}
+      />
+    </View>
+  );
+});
 
 export default ListMyBookings;
 
-// const styles = StyleSheet.create({
-//   box: {box},
-//   boxCartSpecialist: {
-//     width: '100%',
-//     height: 80,
-//     borderRadius,
-//     backgroundColor: '#ffffff',
-//     marginBottom: 10,
-//     flexDirection: 'row',
-//     padding: 7,
-//   },
-//   activeBoxCartSpecialist: {
-//     width: '100%',
-//     height: 80,
-//     borderRadius,
-//     backgroundColor: ctaColor,
-//     marginBottom: 10,
-//     flexDirection: 'row',
-//     padding: 7,
-//   },
-//   imageCartSpecialist: {
-//     height: '100%',
-//     width: 60,
-//     borderRadius,
-//     marginRight: 10,
-//   },
-//   boxTextCartSpecialist: {
-//     flex: 1,
-//     flexDirection: 'row',
-//     // backgroundColor: 'green',
-//     justifyContent: 'space-between',
-//   },
-//   textCartSpecialist: {
-//     flex: 1,
-//     // justifyContent: 'space-between',
-//     alignItems: 'flex-start',
-//     // backgroundColor: 'yellow',
-//   },
-//   infoCartSpecialist: {
-//     height: '100%',
-//     width: 30,
-//     // backgroundColor: 'red',
-//     justifyContent: 'space-between',
-//   },
-// });
+const styles = StyleSheet.create({
+  box: {
+    flex: 1,
+  },
+  boxCart: {
+    // width: '100%',
+    // width,
+    // height: 155,
+    flex: 1,
+    borderRadius,
+    backgroundColor: '#ffffff',
+    // marginBottom: 10,
+    flexDirection: 'column',
+
+    marginBottom: itemMarginBottom,
+  },
+  boxPrograma: {
+    flexDirection: 'row',
+    paddingLeft: padding,
+    paddingTop: padding,
+    paddingRight: padding,
+  },
+
+  imageCart: {
+    height: '100%',
+    width: 90,
+    borderRadius,
+    marginRight: 10,
+  },
+  boxTextCart: {
+    flex: 1,
+    flexDirection: 'row',
+    // backgroundColor: 'green',
+    justifyContent: 'space-between',
+  },
+  textCart: {
+    flex: 1,
+    alignItems: 'flex-start',
+    // backgroundColor: 'yellow',
+  },
+  infoCart: {
+    height: '100%',
+    width: 30,
+    // backgroundColor: 'red',
+    justifyContent: 'space-between',
+  },
+});

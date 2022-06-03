@@ -11,23 +11,23 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {fieldFormColor, GS} from '../const/GLOBALSTYLE';
 
 const Search = ({name}) => {
-  return (    
-      <View style={styles.box}>
-        <Icon
-          name={'search'}
-          size={30}
-          color={fieldFormColor}
-          style={{marginHorizontal: 5}}
-        />
-        <TextInput
-          placeholder={name}
-          placeholderTextColor={fieldFormColor}
-          maxLength={38}
-          // value={name}
-          numberOfLines={1}
-          style={[GS.SmallText, styles.textInput]}
-        />      
-      </View>    
+  return (
+    <View style={styles.box}>
+      <Icon
+        name={'search'}
+        size={30}
+        color={fieldFormColor}
+        style={{marginHorizontal: 5}}
+      />
+      <TextInput
+        placeholder={name}
+        placeholderTextColor={fieldFormColor}
+        maxLength={38}
+        // value={name}
+        numberOfLines={1}
+        style={[GS.SmallText, styles.textInput]}
+      />
+    </View>
   );
 };
 export default Search;
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     width: '100%',
     // justifyContent: 'center',
     // alignItems: 'center',
-    // backgroundColor: 'red',
+    backgroundColor: '#ffffff',
     borderColor: fieldFormColor,
     borderWidth: 1,
     borderRadius: 7,

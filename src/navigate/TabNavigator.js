@@ -1,13 +1,13 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import BookingsScreen from '../screens/BookingsScreen';
 import SpecialistScreen from '../screens/SpecialistScreen';
 import ProgramsScreen from '../screens/ProgramsScreen';
 import MyBookingsScreen from '../screens/MyBookingsScreen';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   GS,
   ctaColor,

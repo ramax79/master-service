@@ -7,10 +7,26 @@ import {ctaColor, GS, unselectedColor} from '../const/GLOBALSTYLE';
 const pressButton = () => {
   console.log('ok');
 };
-const ButtonCartInfo = ({name, color}) => {
+const ButtonCartInfo = ({
+  navigation,
+  name,
+  size = 20,
+  color,
+  onPress,
+  backgroundColor = unselectedColor,
+}) => {
+  const styles = StyleSheet.create({
+    container: {
+      width: size + 10,
+      height: size + 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 5,
+    },
+  });
   return (
     <Pressable
-      onPress={pressButton}
+      onPress={onPress}
       android_ripple={{
         // color: ctaColor,
         foreground: false,
@@ -19,22 +35,12 @@ const ButtonCartInfo = ({name, color}) => {
       style={({pressed}) => [
         styles.container,
         {
-          backgroundColor: pressed ? ctaColor : unselectedColor,
+          backgroundColor: pressed ? ctaColor : backgroundColor,
         },
         {opacity: pressed ? 0.1 : 1},
       ]}>
-      <Icon name={name} size={20} color={color} />
+      <Icon name={name} size={size} color={color} />
     </Pressable>
   );
 };
 export default ButtonCartInfo;
-
-const styles = StyleSheet.create({
-  container: {
-    width: 30,
-    height: 30,   
-    justifyContent: 'center',
-    alignItems: 'center',    
-    borderRadius: 5,
-  },
-});

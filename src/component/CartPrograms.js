@@ -1,12 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import {View, Text, StyleSheet, FlatList, Image, Pressable} from 'react-native';
 
 import {observer} from 'mobx-react';
 import * as mobx from 'mobx';
@@ -17,18 +10,29 @@ import {
   ctaColor,
   errorColor,
   GS,
-  textColor,
+  padding,
   unselectedNaviColor,
+  textColor,
+  marginBottom,
+  unselectedColor,
 } from '../const/GLOBALSTYLE';
 import ButtonCartInfo from './ButtonCartInfo';
 import Rating from './Rating';
 
-const CartPrograms = observer(({navigation}) => {
-  const activeItems = (item, index) => {
-    setActiveIndex(index + 1);
-  };
-
-  const renderItem = ({item, index}) => {
+const CartPrograms = observer(
+  ({
+    navigation,
+    id,
+    onPress,
+    infoEnable = true,
+    disabled = false,
+    ratingEnable = false,
+    activeIndex,
+    index,
+    buttonCartInfoOnPress,
+  }) => {
+    const enableCartPrograms = id;
+    const item = myState.PROGRAMS.find(i => i.id === id);
     const favorite = false;
     let nameFavorite = '';
     let colorFavorite = '';
@@ -40,7 +44,6 @@ const CartPrograms = observer(({navigation}) => {
       colorFavorite = ctaColor;
     }
     const boxCart = [styles.boxCartPrograms];
-    // console.log('myState.colorNameProgram - ', myState.colorNameProgram);
 
     myState.setColorNameProgram(textColor);
 
@@ -49,146 +52,252 @@ const CartPrograms = observer(({navigation}) => {
 
     if (activeIndex === index + 1) {
       boxCart.push(styles.activeBoxCartPrograms);
-
       myState.setColorNameProgram('#ffffff');
-
       colorNameProgram.push({color: '#ffffff'});
       colorSpecProgram.push({color: '#ffffff'});
+      myState.setProgramBookingFormated(item.nameProgram);
+      myState.setPriceBookingFormated(item.price);
     }
-    // console.log(item.foto);
+
     const shortInfo = item => {
-      // console.log(item.split(';'));
       return item.split(';');
     };
 
+    const renderShortInfo = ({index, item}) => {
+      const colorNameProgram = mobx.toJS(myState).colorNameProgram;
+
+      return (
+        <Text
+          key={index}
+          style={[
+            GS.extraSmallText,
+            styles.textBoxShortInfo,
+            colorNameProgram,
+          ]}>
+          {`- ${item.trim()}`}
+        </Text>
+      );
+    };
+
+    let boxStyle = [styles.boxNull];
+
+    const star = [
+      unselectedColor,
+      unselectedColor,
+      unselectedColor,
+      unselectedColor,
+      unselectedColor,
+    ];
+
+    const starPress = index => {
+      console.log(index);
+      let i = 0;
+      do {
+        i <= index ? (star[i] = ctaColor) : (star[i] = '#ffffff');
+        i++;
+      } while (i <= 4);
+      console.log(star);
+    };
+
+    const renderItem = ({item, index}) => {
+      console.log('indexrender= ', index);
+      return (
+        <ButtonCartInfo
+          name={'star'}
+          // color={ctaColor}
+          color={item}
+          backgroundColor={'#ffffff'}
+          size={40}
+          onPress={() => starPress(index)}
+        />
+      );
+    };
+    // return(
+
+    // )
+
     return (
-      <TouchableOpacity        
-        onPress={() => activeItems(item, index)}>
-        <View style={boxCart}>
-          {/* box описания c фото*/}
-          <View style={styles.boxInfoCart}>
-            <Image source={{uri: item.image}} style={styles.imageCartPrograms} />
-            <View style={styles.boxTextCart}>
-              {/* группа текстовое описание */}
-              <View style={styles.boxHeader}>
-                <View style={styles.boxName}>
-                  <Text style={[GS.Subtitle2, colorNameProgram]}>
-                    {item.nameProgram}
-                  </Text>
-                  <Text style={[GS.extraSmallText, colorSpecProgram]}>
-                    {item.specialization}
-                  </Text>
-                </View>
-                <View style={{height: 30, width: 30}}>
-                  <ButtonCartInfo name={nameFavorite} color={colorFavorite} />
+      <View style={styles.box}>
+        <Pressable
+          onPress={onPress}
+          disabled={disabled}
+          android_ripple={{
+            // color: ctaColor,
+            foreground: false,
+            borderless: false,
+          }}
+          style={({pressed}) => [
+            boxStyle,
+            // {
+            //   backgroundColor: pressed ? ctaColor : unselectedColor,
+            // },
+            {opacity: pressed ? 0.1 : 1},
+          ]}>
+          {enableCartPrograms === null ? (
+            <View style={styles.boxEmpty}>
+              <Text style={[GS.H1, {color: '#ffffff'}]}>
+                Выберите программу
+              </Text>
+            </View>
+          ) : (
+            <View style={boxCart}>
+              {/* box описания c фото*/}
+              <View style={styles.boxInfoCart}>
+                <Image
+                  source={{uri: item.image}}
+                  style={styles.imageCartPrograms}
+                />
+                <View style={styles.boxTextCart}>
+                  {/* группа текстовое описание */}
+                  <View style={styles.boxHeader}>
+                    <View style={styles.boxName}>
+                      <Text style={[GS.Subtitle2, colorNameProgram]}>
+                        {item.nameProgram}
+                      </Text>
+                      <Text style={[GS.extraSmallText, colorSpecProgram]}>
+                        {item.specialization}
+                      </Text>
+                    </View>
+                    <View style={{height: 30, width: 30}}>
+                      <ButtonCartInfo
+                        name={nameFavorite}
+                        color={colorFavorite}
+                      />
+                    </View>
+                  </View>
+                  <FlatList
+                    keyExtractor={(item, index) => index.toString()}
+                    data={shortInfo(item.shortInfo)}
+                    horizontal={false}
+                    renderItem={renderShortInfo}
+                  />
                 </View>
               </View>
-              <FlatList
-                keyExtractor={(item, index) => index.toString()}
-                data={shortInfo(item.shortInfo)}
-                horizontal={false}
-                renderItem={renderShortInfo}
-              />
+              {/* группа рейтинг описание длительность цена */}
+              <View style={styles.boxButtonCart}>
+                <Rating
+                  name={'star'}
+                  color={ctaColor}
+                  size={15}
+                  text={item.rating}
+                  disabled={false}
+                  width={55}
+                  height={30}
+                  aligncenter={true}
+                  textMargin={{marginLeft: 0}}
+                />
+                <Rating
+                  name={'av-timer'} //alarm
+                  color={unselectedNaviColor}
+                  disabled={true}
+                  size={20}
+                  text={`${item.time} мин`}
+                  width={80}
+                  height={30}
+                  aligncenter={true}
+                  textMargin={{marginLeft: 0}}
+                />
+                <Rating
+                  name={''}
+                  color={unselectedNaviColor}
+                  size={12}
+                  disabled={true}
+                  text={`${item.price} руб`}
+                  width={70}
+                  height={30}
+                  aligncenter={true}
+                  textMargin={{marginLeft: 0}}
+                />
+                {infoEnable ? (
+                  <ButtonCartInfo
+                    name={'info'}
+                    color={ctaColor}
+                    onPress={buttonCartInfoOnPress}
+                  />
+                ) : null}
+              </View>
+              {ratingEnable ? (
+                <View style={styles.boxRating}>
+                  <Text style={[GS.Subtitle2, {textAlign: 'center'}]}>
+                    Оцените программу
+                  </Text>
+                  <View style={styles.boxStar}>
+                    <FlatList
+                      keyExtractor={(item, index) => index.toString()}
+                      data={star}
+                      extraData={star}
+                      horizontal={true}
+                      // showsVerticalScrollIndicator={false}
+                      renderItem={renderItem}
+                    />
+                    {/* {star.map((item, index) => (
+                      <View key={index}>
+                        <ButtonCartInfo
+                          name={'star'}
+                          // color={ctaColor}
+                          color={item}
+                          backgroundColor={'#ffffff'}
+                          size={40}
+                          onPress={() => starPress(index)}
+                        />
+                      </View>
+                    ))} */}
+                  </View>
+                </View>
+              ) : null}
             </View>
-          </View>
-          {/* группа рейтинг описание длительность цена */}
-          <View style={styles.boxButtonCart}>
-            <Rating
-              name={'star-rate'}
-              color={ctaColor}
-              size={15}
-              rating={item.rating}
-              width={55}
-              height={30}
-            />
-            <Rating
-              name={'alarm'}
-              color={unselectedNaviColor}
-              size={20}
-              rating={`${item.time} мин`}
-              width={80}
-              height={30}
-            />
-            <Rating
-              name={''}
-              color={unselectedNaviColor}
-              size={12}
-              rating={`${item.price} руб`}
-              width={70}
-              height={30}
-            />
-            <ButtonCartInfo name={'info'} color={ctaColor} />
-          </View>
-        </View>
-      </TouchableOpacity>
+          )}
+        </Pressable>
+      </View>
     );
-  };
-
-  const renderShortInfo = ({index, item}) => {
-    const colorNameProgram = mobx.toJS(myState).colorNameProgram;
-    // console.log(colorNameProgram);
-    return (
-      <Text
-        key={index}
-        style={[
-          GS.extraSmallText,
-          styles.textBoxShortInfo,
-          colorNameProgram,
-          // myState.colorNameProgram,
-          // {flexShrink: 1},
-        ]}>
-        {`- ${item.trim()}`}
-      </Text>
-    );
-  };
-
-  const [activeIndex, setActiveIndex] = useState(1);
-
-  return (
-    <View style={{flexDirection: 'row'}}>
-      <FlatList
-        keyExtractor={(item, index) => index.toString()}
-        data={myState.PROGRAMS}
-        horizontal={true}
-        // initialScrollIndex={activeDayIndex - 1}
-        // getItemLayout={(data, index) => ({
-        //   length: width / 9 + 10,
-        //   offset: (width / 9 + 10) * index,
-        //   index,
-        // })}
-        showsHorizontalScrollIndicator={false}
-        renderItem={renderItem}
-      />
-    </View>
-  );
-});
+  },
+);
 export default CartPrograms;
 
 const styles = StyleSheet.create({
+  box: {
+    flex: 1,
+  },
+  boxNull: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: ctaColor,
+    borderRadius,
+  },
   boxCartPrograms: {
-    //CartMaster.js
-    width: 300,
-    height: 155,
+    width: '100%',
+    // height: 155,
     borderRadius,
     backgroundColor: '#ffffff',
-    marginRight: 10,
     flexDirection: 'column',
-    padding: 5,
+    padding,
   },
   activeBoxCartPrograms: {
-    //CartMaster.js
-    width: 300,
+    backgroundColor: ctaColor,
+  },
+  boxRating: {
+    width: '100%',
+    backgroundColor: '#ffffff',
+    // alignItems: 'center',
+    // paddingTop: 20,
+  },
+  boxEmpty: {
+    width: '100%',
+    backgroundColor: ctaColor,
     height: 155,
     borderRadius,
-    backgroundColor: ctaColor,
-    marginRight: 10,
-    flexDirection: 'column',
-    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  boxStar: {
+    // backgroundColor: 'red',
+    marginTop: marginBottom,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    // alig
   },
   imageCartPrograms: {
-    //CartMaster.js
-    // height: 107,
-    // width: 90,
     height: '100%',
     width: 90,
     borderRadius,
@@ -209,25 +318,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 30,
     justifyContent: 'space-between',
+    marginBottom,
   },
   boxHeader: {
-    // flex: 1,
     height: 30,
     width: '100%',
     flexDirection: 'row',
     marginBottom: 5,
-    // justifyContent: 'space-between',
-    // alignItems: 'flex-start',
     // backgroundColor: 'yellow',
   },
   boxName: {
     flex: 1,
     // backgroundColor: 'blue',
-  },
-  textBoxShortInfo: {
-    flex: 1,
-    // width: '100%',
-    // height: '100%',
-    // backgroundColor: 'red',
   },
 });

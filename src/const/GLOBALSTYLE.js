@@ -18,6 +18,7 @@ export const {width, height} = Dimensions.get('window');
 export const borderRadius = 7;
 export const marginBottom = 5;
 export const marginTop = 15;
+export const itemMarginBottom = 10;
 export const padding = 7;
 
 // fontFamily: 'Inter-Light',
@@ -78,90 +79,6 @@ export const GS = StyleSheet.create({
     backgroundColor,
     height: 40,
     width: '100%',
-  },
-  calendarDayWeek: {
-    // flexDirection: 'row',
-    // justifyContent: 'space-between',
-    // alignItems: 'center',
-    marginVertical: 10,
-    backgroundColor: '#ffffff',
-    borderRadius: 7,
-    height: 74,
-    width: '100%',
-  },
-  calendarDays: {},
-  calendarBox: {
-    // flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    borderWidth: 1,
-    borderColor: backgroundCardsColor,
-    borderStyle: 'solid',
-    backgroundColor: '#ffffff',
-    borderRadius: 7,
-    margin: 5,
-    height: 64,
-    width: width / 9,
-  },
-  activeCalendarBox: {
-    // flexDirection: 'row',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    borderWidth: 1,
-    borderColor: ctaColor,
-    borderStyle: 'solid',
-    backgroundColor: unselectedColor,
-    // borderRadius: 7,
-    // margin: 5,
-    // height: 64,
-    // width: width / 9,
-  },
-  calendarDayWeekTime: {
-    flex: 1,
-    marginVertical: 10,
-    // backgroundColor: 'blue',
-  },
-  selectedCalendarBoxTime: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 5,
-    height: 40,
-    width: 70,
-    borderRadius: 7,
-    borderWidth: 1,
-    borderColor: ctaColor,
-    borderStyle: 'solid',
-    backgroundColor: unselectedColor,
-  },
-  enableCalendarBoxTime: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 5,
-    height: 40,
-    width: 70,
-    backgroundColor: '#ffffff',
-    borderRadius: 7,
-    borderWidth: 1,
-    borderColor: ctaColor,
-    borderStyle: 'solid',
-  },
-  disableCalendarBoxTime: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 5,
-    height: 40,
-    width: 70,
-    backgroundColor: '#ffffff',
-    borderRadius: 7,
-    borderWidth: 1,
-    borderColor: backgroundCardsColor,
-    borderStyle: 'solid',
-  },
-  calendarBoxTime: {},
-
-  columnTime: {
-    justifyContent: 'space-between',
   },
 
   shadowOpacity: {

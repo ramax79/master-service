@@ -4,15 +4,11 @@ import {View, Text, StyleSheet} from 'react-native';
 import ListSpecialist from '../component/ListSpecialist';
 import ButtonBox from '../component/ButtonBox';
 import Search from '../component/Search';
-import {GS, marginTop, marginBottom} from '../const/GLOBALSTYLE';
+import {GS, marginTop, marginBottom, ctaColor} from '../const/GLOBALSTYLE';
 import CartCategory from '../component/CartCategory';
 import {myState} from '../state/State';
 
 const SpecialistScreen = ({navigation}) => {
-  // const cartspecialist = {
-  //   horizontal: 'false',
-  //   box: {flex: 1, marginTop: 15},
-  // };
   return (
     <View style={[GS.conteiner, {justifyContent: 'space-between'}]}>
       <Search name={'Поиск специалиста'} />
@@ -24,10 +20,18 @@ const SpecialistScreen = ({navigation}) => {
         horizontal={false}
         width={'100%'}
         boxMargin={{marginBottom: 10}}
+        navigation={navigation}
       />
       <View style={{marginBottom}}></View>
 
-      <ButtonBox name={'Выбрать специалиста'} />
+      <ButtonBox
+        textButton={'Выбрать специалиста'}
+        box={true}
+        onPress={() => navigation.navigate('Записаться')}
+        disabled={false}
+        backgroundcolor={ctaColor}
+        fontcolor={'#ffffff'}
+      />
     </View>
   );
 };

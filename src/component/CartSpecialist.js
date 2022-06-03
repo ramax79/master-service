@@ -1,18 +1,12 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
 
 import {
   borderRadius,
   ctaColor,
   errorColor,
   GS,
+  padding,
   textColor,
   unselectedNaviColor,
 } from '../const/GLOBALSTYLE';
@@ -22,12 +16,23 @@ import {myState} from '../state/State';
 import ButtonCartInfo from './ButtonCartInfo';
 import Rating from './Rating';
 
-const CartSpecialist = observer(({navigation}) => {
-  const activeItems = (item, index) => {
-    setActiveIndex(index + 1);
-  };
+const CartSpecialist = observer(
+  ({
+    navigation,
+    id,
+    onPress,
+    activeIndex,
+    index,
+    disabled = false,
+    infoEnable = true,
+    favoriteEnable = true,
+    ratingEnable = true,
+    ButtonCartInfoName = 'info',
+    buttonCartInfoOnPress,
+  }) => {
+    const enableCartSpecialist = id;
+    const item = myState.SPECIALIST.find(i => i.id === id);
 
-  const renderItem = ({item, index}) => {
     const favorite = false;
     let nameFavorite = '';
     let colorFavorite = '';
@@ -38,93 +43,134 @@ const CartSpecialist = observer(({navigation}) => {
       nameFavorite = 'turned-in-not';
       colorFavorite = ctaColor;
     }
-    const boxCartSpecialist = [styles.boxCartSpecialist];
+
+    const boxCart = [styles.boxCartSpecialist];
+    // boxCart.push(boxMargin);
+
     const colorFioCartSpecialist = [{color: textColor}];
     const colorSpecCartSpecialist = [{color: unselectedNaviColor}];
 
     if (activeIndex === index + 1) {
-      boxCartSpecialist.push(styles.activeBoxCartSpecialist);
+      boxCart.push(styles.activeBoxCartSpecialist);
       colorFioCartSpecialist.push({color: '#ffffff'});
       colorSpecCartSpecialist.push({color: '#ffffff'});
+      myState.setSpecialistBookingFormated(item.fio);
     }
-    // console.log(item.foto);
+
+    let boxStyle = [styles.boxNull];
+    let justifyContent = [styles.infoCartSpecialist];
+    favoriteEnable
+      ? justifyContent.push({justifyContent: 'space-between'})
+      : justifyContent.push({justifyContent: 'flex-end'});
+
     return (
-      <TouchableOpacity onPress={() => activeItems(item, index)}>
-        <View style={boxCartSpecialist}>
-          <Image source={{uri: item.image}} style={styles.imageCartSpecialist} />
-          {/* box описания */}
-          <View style={styles.boxTextCartSpecialist}>
-            {/* группа текстовое описание */}
-            <View style={{justifyContent: 'space-between'}}>
-              <View style={styles.textCartSpecialist}>
-                <Text style={[GS.Subtitle2, colorFioCartSpecialist]}>
-                  {item.fio}
-                </Text>
-                <Text style={[GS.extraSmallText, colorSpecCartSpecialist]}>
-                  {item.specialization}
-                </Text>
-              </View>
-              <Rating
-                name={'star-rate'}
-                size={15}
-                color={ctaColor}
-                rating={item.rating}
-                width={55}
-                height={30}
+      <View style={styles.box}>
+        <Pressable
+          onPress={onPress}
+          disabled={disabled}
+          android_ripple={{
+            // color: ctaColor,
+            foreground: false,
+            borderless: false,
+          }}
+          style={({pressed}) => [
+            boxStyle,
+            // {
+            //   backgroundColor: pressed ? ctaColor : unselectedColor,
+            // },
+            {opacity: pressed ? 0.1 : 1},
+          ]}>
+          {enableCartSpecialist === null ? (
+            <Text style={[GS.H1, {color: '#ffffff'}]}>
+              Выберите специалиста
+            </Text>
+          ) : (
+            <View style={boxCart}>
+              <Image
+                source={{uri: item.image}}
+                style={styles.imageCartSpecialist}
               />
+              {/* box описания */}
+              <View style={styles.boxTextCartSpecialist}>
+                {/* группа текстовое описание */}
+                <View style={{justifyContent: 'space-between'}}>
+                  <View style={styles.textCartSpecialist}>
+                    <Text style={[GS.Subtitle2, colorFioCartSpecialist]}>
+                      {item.fio}
+                    </Text>
+                    <Text style={[GS.extraSmallText, colorSpecCartSpecialist]}>
+                      {item.specialization}
+                    </Text>
+                  </View>
+                  {ratingEnable ? (
+                    <Rating
+                      name={'star'}
+                      size={15}
+                      color={ctaColor}
+                      disabled={false}
+                      text={item.rating}
+                      width={55}
+                      height={30}
+                      aligncenter={true}
+                      textMargin={{marginLeft: 0}}
+                    />
+                  ) : null}
+                </View>
+                {/* группа избранное и описание */}
+                <View style={justifyContent}>
+                  {favoriteEnable ? (
+                    <ButtonCartInfo name={nameFavorite} color={colorFavorite} />
+                  ) : null}
+                  {infoEnable ? (
+                    <ButtonCartInfo
+                      name={ButtonCartInfoName}
+                      color={ctaColor}
+                      onPress={buttonCartInfoOnPress}
+                    />
+                  ) : null}
+                </View>
+              </View>
             </View>
-            {/* группа избранное и описание */}
-            <View style={styles.infoCartSpecialist}>
-              <ButtonCartInfo name={nameFavorite} color={colorFavorite} />
-              
-              <ButtonCartInfo name={'info'} color={ctaColor} />
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
+          )}
+        </Pressable>
+      </View>
     );
-  };
-
-  const [activeIndex, setActiveIndex] = useState(1);
-
-  return (
-    <View style={styles.box}>
-      <FlatList
-        keyExtractor={(item, index) => index.toString()}
-        data={myState.SPECIALIST}
-        horizontal={true}        
-        showsHorizontalScrollIndicator={false}
-        renderItem={renderItem}
-      />
-    </View>
-  );
-});
+  },
+);
 export default CartSpecialist;
 
 const styles = StyleSheet.create({
-  box:{
-    flexDirection: 'row',
+  box: {
+    flex: 1,
+  },
+  boxNull: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: ctaColor,
+    borderRadius,
   },
   boxCartSpecialist: {
-    width: 230,
+    width: '100%',
+    // width,
     height: 80,
     borderRadius,
     backgroundColor: '#ffffff',
-    // marginRight: 10,
+    // marginBottom: 10,
     flexDirection: 'row',
-    padding: 5,
+    padding,
   },
   activeBoxCartSpecialist: {
-    width: 230,
+    // width,
     height: 80,
     borderRadius,
     backgroundColor: ctaColor,
-    marginRight: 10,
+    // marginBottom: 10,
     flexDirection: 'row',
-    padding: 5,
+    padding,
   },
   imageCartSpecialist: {
-    height: 70,
+    height: '100%',
     width: 60,
     borderRadius,
     marginRight: 10,
@@ -145,6 +191,6 @@ const styles = StyleSheet.create({
     height: '100%',
     width: 30,
     // backgroundColor: 'red',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
 });

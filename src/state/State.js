@@ -1,14 +1,156 @@
 import {makeAutoObservable} from 'mobx';
+import CurrentGetDate from '../const/CurrentGetDate';
 
 class State {
-  currentDayTime = [];
-  disableTouch = false;
-  colorNameProgram = [];
-  colorSpecProgram = [];
+  currentDayTime = []; // массив времени записи на текущую дату
+  disableTouch = false; // используется при отрисовке времении записи на текущую дату, указывает enable ячейка времени или нет
+  colorNameProgram = []; // цвет описания для карточки программы, исп. в перечислении что получат клиенты во flatlist
+  colorSpecProgram = []; // цвет описания для карточки программы, исп. в перечислении что получат клиенты во flatlist
   activeMyBookings = true; // состояние фильтра просмотра в скрине NyBookings
+  activeTimeIndex = null; // активный индекс при выборе времени записи dateSubscribe
+  dataBooking = null; // дата записи  2022-05-27T19:00:00.000Z
+  timeBooking = null; // время записи 11:00
+  specialistBookingFormated = null; // ФИО специалиста для записи на прием Русских А.Г.
+  programBookingFormated = null; // название программы для записи на прием Русская красавица
+  priceBookingFormated = null; // цена программы для записи на прием
+  dataBookingFormated = '-'; // дата записи, отформатированная для карточки бронирования записи 'Пятница, 05.04.2022 | 09:00'
+  activeSpecialist = null; // активный специалист используется при выборе из всех специалистов в карточку бронирования
+  activeProgram = null; // активная программа используется при выборе из всех специалистов в карточку бронирования
 
   day = {
-    '04/28/22': [
+    '30.05.2022': [
+      {
+        time: '9:00',
+        enable: false,
+      },
+      {
+        time: '9:30',
+        enable: true,
+      },
+      {
+        time: '10:00',
+        enable: true,
+      },
+      {
+        time: '10:30',
+        enable: true,
+      },
+      {
+        time: '11:00',
+        enable: false,
+      },
+      {
+        time: '11:30',
+        enable: false,
+      },
+      {
+        time: '12:00',
+        enable: true,
+      },
+      {
+        time: '12:30',
+        enable: true,
+      },
+      {
+        time: '13:00',
+        enable: true,
+      },
+      {
+        time: '13:30',
+        enable: true,
+      },
+      {
+        time: '14:00',
+        enable: true,
+      },
+      {
+        time: '14:30',
+        enable: true,
+      },
+      {
+        time: '15:00',
+        enable: true,
+      },
+      {
+        time: '15:30',
+        enable: true,
+      },
+      {
+        time: '16:00',
+        enable: true,
+      },
+      {
+        time: '16:30',
+        enable: true,
+      },
+      {
+        time: '17:00',
+        enable: false,
+      },
+      {
+        time: '17:30',
+        enable: true,
+      },
+      {
+        time: '18:00',
+        enable: true,
+      },
+      {
+        time: '18:30',
+        enable: false,
+      },
+    ],
+    '31.05.2022': [
+      {
+        time: '9:00',
+        enable: true,
+      },
+      {
+        time: '9:30',
+        enable: true,
+      },
+      {
+        time: '10:00',
+        enable: true,
+      },
+      {
+        time: '10:30',
+        enable: true,
+      },
+      {
+        time: '11:00',
+        enable: true,
+      },
+      {
+        time: '11:30',
+        enable: true,
+      },
+      {
+        time: '12:00',
+        enable: true,
+      },
+      {
+        time: '12:30',
+        enable: true,
+      },
+      {
+        time: '13:00',
+        enable: true,
+      },
+      {
+        time: '13:30',
+        enable: true,
+      },
+      {
+        time: '14:00',
+        enable: true,
+      },
+      {
+        time: '14:30',
+        enable: true,
+      },
+    ],
+    '01.06.2022': [
       {
         time: '9:00',
         enable: false,
@@ -58,57 +200,7 @@ class State {
         enable: true,
       },
     ],
-    '04/29/22': [
-      {
-        time: '9:00',
-        enable: true,
-      },
-      {
-        time: '9:30',
-        enable: true,
-      },
-      {
-        time: '10:00',
-        enable: true,
-      },
-      {
-        time: '10:30',
-        enable: true,
-      },
-      {
-        time: '11:00',
-        enable: true,
-      },
-      {
-        time: '11:30',
-        enable: true,
-      },
-      {
-        time: '12:00',
-        enable: true,
-      },
-      {
-        time: '12:30',
-        enable: true,
-      },
-      {
-        time: '13:00',
-        enable: true,
-      },
-      {
-        time: '13:30',
-        enable: true,
-      },
-      {
-        time: '14:00',
-        enable: true,
-      },
-      {
-        time: '14:30',
-        enable: true,
-      },
-    ],
-    '04/30/22': [
+    '28.05.2022': [
       {
         time: '9:00',
         enable: false,
@@ -158,57 +250,7 @@ class State {
         enable: true,
       },
     ],
-    '05/04/22': [
-      {
-        time: '9:00',
-        enable: false,
-      },
-      {
-        time: '9:30',
-        enable: true,
-      },
-      {
-        time: '10:00',
-        enable: true,
-      },
-      {
-        time: '10:30',
-        enable: true,
-      },
-      {
-        time: '11:00',
-        enable: false,
-      },
-      {
-        time: '11:30',
-        enable: false,
-      },
-      {
-        time: '12:00',
-        enable: true,
-      },
-      {
-        time: '12:30',
-        enable: true,
-      },
-      {
-        time: '13:00',
-        enable: true,
-      },
-      {
-        time: '13:30',
-        enable: true,
-      },
-      {
-        time: '14:00',
-        enable: true,
-      },
-      {
-        time: '14:30',
-        enable: true,
-      },
-    ],
-    '05/07/22': [
+    '29.05.2022': [
       {
         time: '9:00',
         enable: false,
@@ -368,6 +410,7 @@ class State {
       time: 90,
       price: 2000,
       date: new Date('2022,04,28,9,0'),
+      idSpecialist: 1,
     },
     {
       id: 2,
@@ -378,6 +421,7 @@ class State {
       time: 90,
       price: 1500,
       date: new Date('2022,04,28,9,0'),
+      idSpecialist: 2,
     },
     {
       id: 3,
@@ -388,6 +432,7 @@ class State {
       time: 120,
       price: 3500,
       date: new Date('2022,04,28,9,0'),
+      idSpecialist: 3,
     },
     {
       id: 4,
@@ -398,6 +443,7 @@ class State {
       time: 90,
       price: 3000,
       date: new Date('2022,04,28,9,0'),
+      idSpecialist: 1,
     },
     {
       id: 5,
@@ -408,6 +454,7 @@ class State {
       time: 90,
       price: 2000,
       date: new Date('2022,04,28,9,0'),
+      idSpecialist: 4,
     },
   ];
   filterMYBOOKINGS = [
@@ -420,6 +467,7 @@ class State {
       time: 90,
       price: 2000,
       date: new Date('2022,04,28,9,0'),
+      idSpecialist: 1,
     },
     {
       id: 2,
@@ -430,6 +478,7 @@ class State {
       time: 90,
       price: 1500,
       date: new Date('2022,04,28,9,0'),
+      idSpecialist: 2,
     },
   ];
 
@@ -450,9 +499,10 @@ class State {
   }
 
   setCurrentDayTime(date) {
+    // console.log('date - >', date);
     this.currentDayTime = this.day[date];
-    console.log('-', this.day[date]);
-    console.log('date - >', date);
+
+    // console.log('this.currentDayTime = ', this.currentDayTime);
   }
   setDisableTouch(disable) {
     this.disableTouch = disable;
@@ -472,7 +522,55 @@ class State {
     this.filterMYBOOKINGS = [...item];
   }
   setFilterMybookings() {
-    myState.filterMYBOOKINGS = myState.MYBOOKINGS.filter(item => item.active);
+    this.filterMYBOOKINGS = this.MYBOOKINGS.filter(item => item.active);
+  }
+
+  setDataBooking(date) {
+    // console.log('setDataBooking = ', date);
+    this.dataBooking = date;
+    // console.log('this.dataBookingFormated = ', this.dataBookingFormated);
+  }
+  setTimeBooking(time) {
+    this.timeBooking = time;
+    // console.log('this.dataBookingFormated = ', this.dataBookingFormated);
+    // console.log('date = ', date);
+  }
+  setDataBookingFormated() {
+    //'Пятница, 05.04.2022 | 09:00'
+    const currentDate = new CurrentGetDate(new Date(this.dataBooking));
+    // const d = DateF
+    let bookingFormated = '';
+    this.timeBooking === null
+      ? (bookingFormated = '-')
+      : (bookingFormated = `${currentDate.WeekDay}, ${currentDate.nowdate} | ${this.timeBooking}`);
+    this.dataBookingFormated = bookingFormated;
+    // this.dataBookingFormated = this.dataBookingFormated.setHours(hours, min);
+    // console.log('this.dataBookingFormated = ', this.dataBookingFormated);
+    // console.log('date = ', date);
+  }
+
+  setSpecialistBookingFormated(fio) {
+    // ФИО специалиста для записи на прием
+    this.specialistBookingFormated = fio;
+  }
+  setProgramBookingFormated(program) {
+    // название программы для записи на прием
+    this.programBookingFormated = program;
+  }
+  setPriceBookingFormated(price) {
+    // цена программы для записи на прием
+    this.priceBookingFormated = price;
+  }
+
+  setActiveTimeIndex(time) {
+    this.activeTimeIndex = time;
+  }
+  setActiveSpecialist(specialist) {
+    // активный специалист используется при выборе из всех специалистов в карточку бронирования
+    this.activeSpecialist = specialist;
+  }
+  setActiveProgram(program) {
+    this.activeProgram = program;
   }
 }
 
