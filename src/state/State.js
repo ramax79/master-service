@@ -6,7 +6,7 @@ class State {
   disableTouch = false; // используется при отрисовке времении записи на текущую дату, указывает enable ячейка времени или нет
   colorNameProgram = []; // цвет описания для карточки программы, исп. в перечислении что получат клиенты во flatlist
   colorSpecProgram = []; // цвет описания для карточки программы, исп. в перечислении что получат клиенты во flatlist
-  activeMyBookings = true; // состояние фильтра просмотра в скрине NyBookings
+  activeMyBookings = true; // состояние фильтра просмотра в скрине NyBookings true показывать активные
   activeTimeIndex = null; // активный индекс при выборе времени записи dateSubscribe
   dataBooking = null; // дата записи  2022-05-27T19:00:00.000Z
   timeBooking = null; // время записи 11:00
@@ -16,6 +16,17 @@ class State {
   dataBookingFormated = '-'; // дата записи, отформатированная для карточки бронирования записи 'Пятница, 05.04.2022 | 09:00'
   activeSpecialist = null; // активный специалист используется при выборе из всех специалистов в карточку бронирования
   activeProgram = null; // активная программа используется при выборе из всех специалистов в карточку бронирования
+
+  // 9.14. Функции генерирования UUID
+  // В PostgreSQL имеется функция для генерирования UUID:
+  
+  // gen_random_uuid () → uuid
+  // Она возвращает случайный UUID версии 4. Это наиболее популярный тип UUID, подходящий для большинства приложений.
+  
+  // Модуль uuid-ossp предоставляет дополнительные функции, реализующие другие стандартные алгоритмы генерирования UUID.
+  
+  // В PostgreSQL также реализованы показанные в Таблице 9.1 операторы для сравнения значений UUID.
+
 
   day = {
     '30.05.2022': [
@@ -399,88 +410,82 @@ class State {
       info: 'Восхитительный отдых в нашем СПА — эта программа для тех, кто мечтает вырваться из повседневной рутины и отдохнуть, а также напитать тело натуральными компонентами, подаренными самой природой. Кедровая бочка подготавливает тело для последующих процедур. В ней на тело воздействует горячий пар, от чего кожа увлажняется и очищается, открываются поры и вместе с потом из организма выходят вредные вещества. Затем мастер может приступить к проведению процедуры пилинга или обертывания на Ваш выбор. Пилинг – это эффективная процедура ухода за телом, направленная на очищение и обновление клеток кожи, способствующая ее тонизации и детоксикации. Обертывание способствует насыщению поверхностного слоя кожи питательными веществами, увлажняет, восстанавливает упругость, улучшает лимфоток, благодаря чему из организма выводится лишняя жидкость, уходит отечность и лишний вес. Заметить эффект можно уже после первой процедуры — кожа станет более гладкой, шелковистой и нежной на ощупь.',
     },
   ];
-  // new Date(year, month, date, hours, minutes, seconds, ms)
+  user = [
+    {
+      id:1,
+      fio: 'Русских А.А.'
+    }
+  ]
   MYBOOKINGS = [
     {
       id: 1,
-      nameProgram: 'Русская красавица',
-      specialization: 'SPA программа',
+      // nameProgram: 'Русская красавица',
+      // specialization: 'SPA программа',
       active: true,
-      image: 'https://i.ibb.co/23vbxX6/massage4.jpg',
-      time: 90,
-      price: 2000,
+      // image: 'https://i.ibb.co/23vbxX6/massage4.jpg',
+      // time: 90,
+      // price: 2000,
       date: new Date('2022,04,28,9,0'),
       idSpecialist: 1,
+      idProgram: 1,
+      idUser:1,
+      comment: '',
+      rating: 4,
     },
     {
       id: 2,
-      nameProgram: 'Гармония тела',
-      specialization: 'SPA программа',
+      // nameProgram: 'Гармония тела',
+      // specialization: 'SPA программа',
       active: true,
-      image: 'https://i.ibb.co/7tjp9Vh/masage2.jpg',
-      time: 90,
-      price: 1500,
+      // image: 'https://i.ibb.co/7tjp9Vh/masage2.jpg',
+      // time: 90,
+      // price: 1500,
       date: new Date('2022,04,28,9,0'),
       idSpecialist: 2,
+      idProgram: 2,
+      rating: 3,
     },
     {
       id: 3,
-      nameProgram: 'Секрет Клеопатры',
-      specialization: 'SPA программа',
+      // nameProgram: 'Секрет Клеопатры',
+      // specialization: 'SPA программа',
       active: false,
-      image: 'https://i.ibb.co/Qc3G8Dm/masage1.jpg',
-      time: 120,
-      price: 3500,
+      // image: 'https://i.ibb.co/Qc3G8Dm/masage1.jpg',
+      // time: 120,
+      // price: 3500,
       date: new Date('2022,04,28,9,0'),
       idSpecialist: 3,
+      idProgram: 3,
+      rating: 0,
     },
     {
       id: 4,
-      nameProgram: 'Рождение Венеры',
-      specialization: 'SPA программа',
+      // nameProgram: 'Рождение Венеры',
+      // specialization: 'SPA программа',
       active: false,
-      image: 'https://i.ibb.co/Qc3G8Dm/masage1.jpg',
-      time: 90,
-      price: 3000,
+      // image: 'https://i.ibb.co/Qc3G8Dm/masage1.jpg',
+      // time: 90,
+      // price: 3000,
       date: new Date('2022,04,28,9,0'),
       idSpecialist: 1,
+      idProgram: 4,
+      rating: 1,
     },
     {
       id: 5,
-      nameProgram: 'Русская красавица',
-      specialization: 'SPA программа',
+      // nameProgram: 'Русская красавица',
+      // specialization: 'SPA программа',
       active: false,
-      image: 'https://i.ibb.co/Qc3G8Dm/masage1.jpg',
-      time: 90,
-      price: 2000,
+      // image: 'https://i.ibb.co/Qc3G8Dm/masage1.jpg',
+      // time: 90,
+      // price: 2000,
       date: new Date('2022,04,28,9,0'),
       idSpecialist: 4,
+      idProgram: 1,
+      rating: 0,
     },
   ];
-  filterMYBOOKINGS = [
-    {
-      id: 1,
-      nameProgram: 'Русская красавица',
-      specialization: 'SPA программа',
-      active: true,
-      image: 'https://i.ibb.co/23vbxX6/massage4.jpg',
-      time: 90,
-      price: 2000,
-      date: new Date('2022,04,28,9,0'),
-      idSpecialist: 1,
-    },
-    {
-      id: 2,
-      nameProgram: 'Гармония тела',
-      specialization: 'SPA программа',
-      active: true,
-      image: 'https://i.ibb.co/7tjp9Vh/masage2.jpg',
-      time: 90,
-      price: 1500,
-      date: new Date('2022,04,28,9,0'),
-      idSpecialist: 2,
-    },
-  ];
+  filterMYBOOKINGS = [];
 
   categorySpecialization = [
     {id: 1, name: 'SPA специалист'},
@@ -571,6 +576,9 @@ class State {
   }
   setActiveProgram(program) {
     this.activeProgram = program;
+  }
+  setMYBOOKINGSRating(rating) {
+    this.MYBOOKINGS.rating = rating;
   }
 }
 

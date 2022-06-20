@@ -15,10 +15,56 @@ import {
 import {observer} from 'mobx-react';
 import {myState} from '../state/State';
 
-import Rating from './Rating';
+import {Rating} from './Rating';
 import CartSpecialist from './CartSpecialist';
 
 const ListMyBookings = observer(({navigation}) => {
+  const filterMYBOOKINGS = [];
+  if (myState.activeMyBookings) {
+    // если показывать только активные
+    myState.MYBOOKINGS.forEach(item => {
+      if (item.active === myState.activeMyBookings) {
+        console.log('item = ', item);
+        const itemProgram = myState.PROGRAMS.find(i => i.id === item.idProgram);
+        console.log(itemProgram);
+        filterMYBOOKINGS.push({
+          nameProgram: itemProgram.nameProgram,
+          specialization: itemProgram.specialization,
+          image: itemProgram.image,
+          time: itemProgram.time,
+          price: itemProgram.price,
+          active: item.active,
+          date: item.date,
+          idSpecialist: item.idSpecialist,
+          idProgram: item.idProgram,
+          id: item.id,
+          rating: item.rating,
+        });
+      }
+    });
+  } else {
+    // если показывать все
+    myState.MYBOOKINGS.forEach(item => {
+      // console.log('item = ', item);
+      const itemProgram = myState.PROGRAMS.find(i => i.id === item.idProgram);
+      // console.log(itemProgram);
+      filterMYBOOKINGS.push({
+        nameProgram: itemProgram.nameProgram,
+        specialization: itemProgram.specialization,
+        image: itemProgram.image,
+        time: itemProgram.time,
+        price: itemProgram.price,
+        active: item.active,
+        date: item.date,
+        idSpecialist: item.idSpecialist,
+        idProgram: item.idProgram,
+        id: item.id,
+        rating: item.rating,
+      });
+    });
+    console.log(itemProgram);
+  }
+
   const renderItem = ({item, index}) => {
     const favorite = false;
     let nameFavorite = '';
@@ -127,7 +173,12 @@ const ListMyBookings = observer(({navigation}) => {
             favoriteEnable={false}
             ratingEnable={false}
             ButtonCartInfoName={'add-comment'}
-            ButtonCartInfoOnPress={() => navigation.navigate('Добавить отзыв')}
+            buttonCartInfoOnPress={() =>
+              navigation.navigate('Добавить отзыв', {
+                id: item.idProgram,
+                rating: item.rating,
+              })
+            }
           />
         </View>
       </View>
@@ -138,7 +189,7 @@ const ListMyBookings = observer(({navigation}) => {
     <View style={styles.box}>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
-        data={myState.filterMYBOOKINGS}
+        data={filterMYBOOKINGS}
         horizontal={false}
         showsVerticalScrollIndicator={false}
         renderItem={renderItem}

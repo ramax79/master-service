@@ -46,11 +46,17 @@ const BookingsScreen = observer(({navigation}) => {
             activeIndex={0}
             index={0}
             disabled={false}
-            ButtonCartInfoOnPress={() =>
-              navigation.navigate('SpecialistInfoScreen', {
-                id: item.id,
-                title: item.fio,
-              })
+            buttonCartInfoOnPress={
+              // console.log(myState.activeSpecialist)
+              () => {
+                const user = myState.SPECIALIST.find(
+                  item => item.id === myState.activeSpecialist,
+                );
+                navigation.navigate('SpecialistInfoScreen', {
+                  id: myState.activeSpecialist,
+                  title: user.fio,
+                });
+              }
             }
           />
         </View>
@@ -77,6 +83,15 @@ const BookingsScreen = observer(({navigation}) => {
             activeIndex={0}
             index={0}
             disabled={false}
+            buttonCartInfoOnPress={() => {
+              const program = myState.PROGRAMS.find(
+                item => item.id === myState.activeProgram,
+              );
+              navigation.navigate('ProgramsInfoScreen', {
+                id: myState.activeProgram,
+                title: program.nameProgram,
+              });
+            }}
           />
         </View>
         <View

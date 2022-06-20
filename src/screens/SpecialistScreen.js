@@ -7,6 +7,7 @@ import Search from '../component/Search';
 import {GS, marginTop, marginBottom, ctaColor} from '../const/GLOBALSTYLE';
 import CartCategory from '../component/CartCategory';
 import {myState} from '../state/State';
+import {Observer} from 'mobx-react';
 
 const SpecialistScreen = ({navigation}) => {
   return (
@@ -23,15 +24,24 @@ const SpecialistScreen = ({navigation}) => {
         navigation={navigation}
       />
       <View style={{marginBottom}}></View>
-
-      <ButtonBox
-        textButton={'Выбрать специалиста'}
-        box={true}
-        onPress={() => navigation.navigate('Записаться')}
-        disabled={false}
-        backgroundcolor={ctaColor}
-        fontcolor={'#ffffff'}
-      />
+      <Observer>
+        {() => {
+          let disabledButton = true;
+          myState.activeSpecialist === null
+            ? (disabledButton = true)
+            : (disabledButton = false);
+          return (
+            <ButtonBox
+              textButton={'Выбрать специалиста'}
+              box={true}
+              onPress={() => navigation.navigate('Записаться')}
+              disabled={disabledButton}
+              backgroundcolor={ctaColor}
+              fontcolor={'#ffffff'}
+            />
+          );
+        }}
+      </Observer>
     </View>
   );
 };

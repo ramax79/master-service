@@ -6,6 +6,7 @@ import {
   borderRadius,
   unselectedNaviColor,
   marginBottom,
+  marginTop,
 } from '../const/GLOBALSTYLE';
 const ButtonBox = ({
   textButton,
@@ -71,5 +72,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius,
     marginBottom,
+    marginTop,
   },
 });

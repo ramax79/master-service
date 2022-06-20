@@ -19,7 +19,7 @@ export const borderRadius = 7;
 export const marginBottom = 5;
 export const marginTop = 15;
 export const itemMarginBottom = 10;
-export const padding = 7;
+export const padding = 7; // рамка у блока, отступ от края рамки до элементов
 
 // fontFamily: 'Inter-Light',
 // fontFamily: 'Roboto-Regular',
