@@ -18,11 +18,7 @@ import {
   marginTop,
 } from '../const/GLOBALSTYLE';
 import ButtonCartInfo from './ButtonCartInfo';
-<<<<<<< HEAD
 import MyRating from './MyRating';
-=======
-import {Rating as MyRating} from './Rating';
->>>>>>> 4a49dbcd3f410c943b560bece5c871f186374ee9
 import {Rating} from 'react-native-ratings';
 
 const CartPrograms = observer(
@@ -39,7 +35,7 @@ const CartPrograms = observer(
     buttonCartInfoOnPress,
   }) => {
     const enableCartPrograms = id;
-    console.log('id = ', id);
+    // console.log('id = ', id);
 
     const item = myState.PROGRAMS.find(i => i.id === id);
     const favorite = false;
@@ -248,10 +244,6 @@ const CartPrograms = observer(
                         justifyContent: 'center',
                       }}
                     />
-<<<<<<< HEAD
-
-=======
->>>>>>> 4a49dbcd3f410c943b560bece5c871f186374ee9
                     {/* <FlatList
                       keyExtractor={(item, index) => index.toString()}
                       data={star}
