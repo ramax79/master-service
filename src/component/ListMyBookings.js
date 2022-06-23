@@ -15,7 +15,11 @@ import {
 import {observer} from 'mobx-react';
 import {myState} from '../state/State';
 
+<<<<<<< HEAD
 import MyRating from './MyRating';
+=======
+import {Rating} from './Rating';
+>>>>>>> 4a49dbcd3f410c943b560bece5c871f186374ee9
 import CartSpecialist from './CartSpecialist';
 
 const ListMyBookings = observer(({navigation}) => {
@@ -24,9 +28,15 @@ const ListMyBookings = observer(({navigation}) => {
     // если показывать только активные
     myState.MYBOOKINGS.forEach(item => {
       if (item.active === myState.activeMyBookings) {
+<<<<<<< HEAD
         // console.log('item = ', item);
         const itemProgram = myState.PROGRAMS.find(i => i.id === item.idProgram);
         // console.log(itemProgram);
+=======
+        console.log('item = ', item);
+        const itemProgram = myState.PROGRAMS.find(i => i.id === item.idProgram);
+        console.log(itemProgram);
+>>>>>>> 4a49dbcd3f410c943b560bece5c871f186374ee9
         filterMYBOOKINGS.push({
           nameProgram: itemProgram.nameProgram,
           specialization: itemProgram.specialization,
@@ -62,7 +72,11 @@ const ListMyBookings = observer(({navigation}) => {
         rating: item.rating,
       });
     });
+<<<<<<< HEAD
     // console.log(itemProgram);
+=======
+    console.log(itemProgram);
+>>>>>>> 4a49dbcd3f410c943b560bece5c871f186374ee9
   }
 
   const renderItem = ({item, index}) => {
