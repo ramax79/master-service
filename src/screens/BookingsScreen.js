@@ -15,12 +15,14 @@ import {observer} from 'mobx-react';
 import {myState} from '../state/State';
 
 import CurrentGetDate from '../const/CurrentGetDate';
+import Config from 'react-native-config';
 
 import moment from 'moment';
 import CartSpecialist from '../component/CartSpecialist';
 import CartPrograms from '../component/CartPrograms';
 
 const BookingsScreen = observer(({navigation}) => {
+  console.log('process.env.DATABASE = ', Config.DATABASE);
   return (
     <View style={[GS.conteiner, {justifyContent: 'space-between'}]}>
       <View>
@@ -46,11 +48,17 @@ const BookingsScreen = observer(({navigation}) => {
             activeIndex={0}
             index={0}
             disabled={false}
-            ButtonCartInfoOnPress={() =>
-              navigation.navigate('SpecialistInfoScreen', {
-                id: item.id,
-                title: item.fio,
-              })
+            buttonCartInfoOnPress={
+              // console.log(myState.activeSpecialist)
+              () => {
+                const user = myState.SPECIALIST.find(
+                  item => item.id === myState.activeSpecialist,
+                );
+                navigation.navigate('SpecialistInfoScreen', {
+                  id: myState.activeSpecialist,
+                  title: user.fio,
+                });
+              }
             }
           />
         </View>
@@ -77,6 +85,15 @@ const BookingsScreen = observer(({navigation}) => {
             activeIndex={0}
             index={0}
             disabled={false}
+            buttonCartInfoOnPress={() => {
+              const program = myState.PROGRAMS.find(
+                item => item.id === myState.activeProgram,
+              );
+              navigation.navigate('ProgramsInfoScreen', {
+                id: myState.activeProgram,
+                title: program.nameProgram,
+              });
+            }}
           />
         </View>
         <View

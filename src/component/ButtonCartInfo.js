@@ -24,6 +24,7 @@ const ButtonCartInfo = ({
       borderRadius: 5,
     },
   });
+  console.log('color = ', color);
   return (
     <Pressable
       onPress={onPress}

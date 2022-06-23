@@ -18,7 +18,7 @@ const pressButton = () => {
   console.log('ok');
 };
 
-const Rating = ({
+const MyRating = ({
   name,
   color,
   size,
@@ -83,4 +83,4 @@ const Rating = ({
     </Pressable>
   );
 };
-export default Rating;
+export default MyRating;

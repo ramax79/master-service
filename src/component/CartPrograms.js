@@ -15,9 +15,11 @@ import {
   textColor,
   marginBottom,
   unselectedColor,
+  marginTop,
 } from '../const/GLOBALSTYLE';
 import ButtonCartInfo from './ButtonCartInfo';
-import Rating from './Rating';
+import MyRating from './MyRating';
+import {Rating} from 'react-native-ratings';
 
 const CartPrograms = observer(
   ({
@@ -27,11 +29,14 @@ const CartPrograms = observer(
     infoEnable = true,
     disabled = false,
     ratingEnable = false,
+    rating = 0,
     activeIndex,
     index,
     buttonCartInfoOnPress,
   }) => {
     const enableCartPrograms = id;
+    console.log('id = ', id);
+
     const item = myState.PROGRAMS.find(i => i.id === id);
     const favorite = false;
     let nameFavorite = '';
@@ -101,6 +106,7 @@ const CartPrograms = observer(
 
     const renderItem = ({item, index}) => {
       console.log('indexrender= ', index);
+      console.log('item= ', item);
       return (
         <ButtonCartInfo
           name={'star'}
@@ -112,9 +118,11 @@ const CartPrograms = observer(
         />
       );
     };
-    // return(
 
-    // )
+    const ratingCompleted = rating => {
+      console.log('ok=', rating);
+      myState.setMYBOOKINGSRating(rating);
+    };
 
     return (
       <View style={styles.box}>
@@ -175,7 +183,7 @@ const CartPrograms = observer(
               </View>
               {/* группа рейтинг описание длительность цена */}
               <View style={styles.boxButtonCart}>
-                <Rating
+                <MyRating
                   name={'star'}
                   color={ctaColor}
                   size={15}
@@ -186,7 +194,7 @@ const CartPrograms = observer(
                   aligncenter={true}
                   textMargin={{marginLeft: 0}}
                 />
-                <Rating
+                <MyRating
                   name={'av-timer'} //alarm
                   color={unselectedNaviColor}
                   disabled={true}
@@ -197,7 +205,7 @@ const CartPrograms = observer(
                   aligncenter={true}
                   textMargin={{marginLeft: 0}}
                 />
-                <Rating
+                <MyRating
                   name={''}
                   color={unselectedNaviColor}
                   size={12}
@@ -222,26 +230,33 @@ const CartPrograms = observer(
                     Оцените программу
                   </Text>
                   <View style={styles.boxStar}>
-                    <FlatList
+                    <Rating
+                      type="custom"
+                      ratingColor={ctaColor}
+                      ratingBackgroundColor={unselectedColor}
+                      tintColor="#ffffff"
+                      ratingCount={5}
+                      imageSize={40}
+                      startingValue={rating}
+                      onFinishRating={ratingCompleted}
+                      style={{
+                        flex: 1,
+                        justifyContent: 'center',
+                      }}
+                    />
+
+                    {/* <FlatList
                       keyExtractor={(item, index) => index.toString()}
                       data={star}
                       extraData={star}
                       horizontal={true}
-                      // showsVerticalScrollIndicator={false}
+                      contentContainerStyle={{
+                        flex: 1,
+                        justifyContent: 'center',
+                      }}
+                      showsHorizontalScrollIndicator={false}
                       renderItem={renderItem}
-                    />
-                    {/* {star.map((item, index) => (
-                      <View key={index}>
-                        <ButtonCartInfo
-                          name={'star'}
-                          // color={ctaColor}
-                          color={item}
-                          backgroundColor={'#ffffff'}
-                          size={40}
-                          onPress={() => starPress(index)}
-                        />
-                      </View>
-                    ))} */}
+                    /> */}
                   </View>
                 </View>
               ) : null}
@@ -256,16 +271,17 @@ export default CartPrograms;
 
 const styles = StyleSheet.create({
   box: {
-    flex: 1,
+    // flex: 1,
   },
   boxNull: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     // backgroundColor: ctaColor,
     borderRadius,
   },
   boxCartPrograms: {
+    // flex: 1,
     width: '100%',
     // height: 155,
     borderRadius,
@@ -279,6 +295,7 @@ const styles = StyleSheet.create({
   boxRating: {
     width: '100%',
     backgroundColor: '#ffffff',
+    marginTop,
     // alignItems: 'center',
     // paddingTop: 20,
   },
@@ -292,9 +309,10 @@ const styles = StyleSheet.create({
   },
   boxStar: {
     // backgroundColor: 'red',
+    width: '100%',
     marginTop: marginBottom,
     flexDirection: 'row',
-    justifyContent: 'center',
+    // backgroundColor: 'red',
     // alig
   },
   imageCartPrograms: {
@@ -310,15 +328,15 @@ const styles = StyleSheet.create({
   },
   boxInfoCart: {
     flexDirection: 'row',
-    flex: 1,
-    marginBottom: 5,
+    // flex: 1,
+    marginBottom,
     // backgroundColor: 'red',
   },
   boxButtonCart: {
     flexDirection: 'row',
     height: 30,
     justifyContent: 'space-between',
-    marginBottom,
+    // marginBottom,
   },
   boxHeader: {
     height: 30,

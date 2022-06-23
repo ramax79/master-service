@@ -8,11 +8,11 @@ import ButtonBox from '../component/ButtonBox';
 
 const MyBookingsScreen = observer(({navigation}) => {
   const onpress = () => {
-    if (myState.activeMyBookings) {
+    if (myState.activeMyBookings) { // показывает все записи
       myState.setClearFilterMYBOOKINGS();
       myState.setAddFilterMYBOOKINGS(myState.MYBOOKINGS);
       // myState.filterMYBOOKINGS = [...myState.MYBOOKINGS];
-    } else {
+    } else {  // убирает архивные записи
       myState.setClearFilterMYBOOKINGS();
       myState.setFilterMybookings();
       // myState.setActiveMyBookings(myState.activeMyBookings);
@@ -46,7 +46,7 @@ const MyBookingsScreen = observer(({navigation}) => {
       </View>
       <View style={{height: '100%', paddingBottom: 15}}>
         <ListMyBookings
-          boxMargin={{marginBottom: 10}}
+          // boxMargin={{marginBottom: 10}}
           navigation={navigation}
         />
       </View>

@@ -14,7 +14,7 @@ import {observer} from 'mobx-react';
 import {myState} from '../state/State';
 
 import ButtonCartInfo from './ButtonCartInfo';
-import Rating from './Rating';
+import MyRating from './MyRating';
 
 const CartSpecialist = observer(
   ({
@@ -103,7 +103,7 @@ const CartSpecialist = observer(
                     </Text>
                   </View>
                   {ratingEnable ? (
-                    <Rating
+                    <MyRating
                       name={'star'}
                       size={15}
                       color={ctaColor}
